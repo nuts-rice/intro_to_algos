@@ -55,6 +55,33 @@ impl<T: PartialOrd + Default> Priority_Queue<T>{
     pub fn peek(&self) -> Option<&T>{
         self.pq.get(1)
     }
+    
+    //Adds new key to queue and travereses with swim fn
+    pub fn enqueue(&mut self, x: T) {
+        self.pq.push(x);
+        self.n += 1;
+        self.swim(self.n);
+    }
+    //Removes and returns min/max key based on heap property
+    pub fn dequeue(&mut self) -> Option<T>{
+        if self.n == 0{
+            None
+        } else {
+            self.pq.swap(1, self.n);
+            self.n -= 1;
+            self.sink(1);
+            self.pq.pop()
+        }
+    }
+
+    fn swim(&mut self, mut k: usize){
+        return;
+    }
+
+    fn sink(&mut self, mut k: usize){
+        return;
+    }
+
 }
 
 
