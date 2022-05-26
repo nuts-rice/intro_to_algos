@@ -48,13 +48,13 @@ pub fn heapsort<T: PartialOrd>(v: &mut [T]) {
 }
 
 #[cfg(test)]
-    mod test {
-        use super::*;
-    
-          #[test]
-          fn sort_1() {
-              let mut data = vec![3, 9, 3, 1, 7];
-              heapsort(&mut data);
-              assert_eq!(data, [1, 3, 3, 7, 9]);
-          }
-      }
+mod test {
+    use super::*;
+
+    #[test]
+    fn sort_1() {
+        let mut data = vec![3, 9, 3, 1, 7];
+        heapsort(&mut data);
+        assert_eq!(data, [1, 3, 3, 7, 9]);
+    }
+}
