@@ -7,3 +7,7 @@ edition = "2021"
 
 [dependencies]
 lazy_static = "1.4.0"
+libc = "^0"
+rand = {version = "^0", default-features = false}
+rand_core = {version = "^0", default-features = false}
+rand_isaac = {version = "^0", default-features = false}
