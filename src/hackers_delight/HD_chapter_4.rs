@@ -1,4 +1,4 @@
-/propogating bounds through adds
+///propogating bounds through adds
 pub fn boundsAdd(a: i64, b: i64, c: i64, d: i64) -> (i64, i64) {
     let mut s = a + c;
     let mut t = b + d;
@@ -14,8 +14,12 @@ pub fn boundsAdd(a: i64, b: i64, c: i64, d: i64) -> (i64, i64) {
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_boundsAdd() {
-    let test = [[0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000],
-                [3, 6, 2, 7, 5, 13], [-6, -3, -7, -2, -13, -5]
+    let test = [
+        [
+            0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        ],
+        [3, 6, 2, 7, 5, 13],
+        [-6, -3, -7, -2, -13, -5],
     ];
     for i in 0..3 {
         let (s, t) = boundsAdd(test[i][0], test[i][1], test[i][2], test[i][3]);
@@ -37,8 +41,12 @@ pub fn boundsSignedAdd(a: i64, b: i64, c: i64, d: i64) -> (i64, i64) {
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_boundsSignedAdd() {
-    let test =  [[0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000],
-                [3, 6, 2, 7, 5, 13], [-6, -3, -7, -2, -13, -5]
+    let test = [
+        [
+            0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        ],
+        [3, 6, 2, 7, 5, 13],
+        [-6, -3, -7, -2, -13, -5],
     ];
     for i in 0..3 {
         let (s, t) = boundsSignedAdd(test[i][0], test[i][1], test[i][2], test[i][3]);
@@ -60,8 +68,9 @@ pub fn boundsSub(a: i64, b: i64, c: i64, d: i64) -> (i64, i64) {
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_boundsSub() {
-    let test = [[0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000]
-    ];
+    let test = [[
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    ]];
     for i in 0..1 {
         let (s, t) = boundsSub(test[i][0], test[i][1], test[i][2], test[i][3]);
         assert_eq!(t, test[i][5]);

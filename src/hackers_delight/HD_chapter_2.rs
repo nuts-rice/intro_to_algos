@@ -38,7 +38,7 @@ pub fn formula_rightmost_1_to_0(x: u8) -> u8 {
 
 //turn off rightmost continous string of 1s
 pub fn formula_turnoff_rightmost_1s(x: u8) -> u8 {
-    ((x | (x - 1))) + (1) & 1
+    (x | (x - 1)) + (1) & 1
 }
 
 //Demorgan's Laws
@@ -53,7 +53,9 @@ pub fn demorgan_2(x: u8, y: u8) -> bool {
 
 //number of trailing zeros, number of leading zeros, population count
 pub fn ntz(mut x: u32) -> u32 {
-    if x == 0 {return 32; }
+    if x == 0 {
+        return 32;
+    }
     let mut n = 1;
     if (x & 0x0000FFFF) == 0 {
         n = n + 16;
@@ -74,9 +76,10 @@ pub fn ntz(mut x: u32) -> u32 {
     n - (x & 1)
 }
 
-
 pub fn nlz(mut x: u32) -> u32 {
-    if x == 0 {return 32;}
+    if x == 0 {
+        return 32;
+    }
     let mut n = 0;
     if x <= 0x0000FFFF {
         n = n + 16;
@@ -94,7 +97,9 @@ pub fn nlz(mut x: u32) -> u32 {
         n = n + 2;
         x = x << 2;
     }
-    if x <= 0x7FFFFFF {n = n + 1;}
+    if x <= 0x7FFFFFF {
+        n = n + 1;
+    }
     return n;
 }
 
@@ -115,13 +120,12 @@ pub fn ntz2(mut x: u32) -> u32 {
     return population_cnt(!x & (x - 1));
 }
 
-
 //Snoob: bit shifting for continous 1s or 0s
 // given that theres subsets of 1s or 0s, we can find rightmost continous group of 1s in x and following 0s
 // then we can "increment" that quantity to the next value that has the same number of 1s
 pub fn snoob0(mut x: i32) -> i32 {
     let mut smallest = 0;
-    let mut ripple  = 0;
+    let mut ripple = 0;
     let mut ones = 0;
     smallest = x & -x;
     ripple = x + smallest;
@@ -131,8 +135,8 @@ pub fn snoob0(mut x: i32) -> i32 {
 }
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
-fn test_2_1(){
+#[cfg_attr(not(target_arch = "riscv64"), test)]
+fn test_2_1() {
     assert_eq!(formula_get_and(0b01011000), (0b001010000));
     assert_eq!(formula_get_or(0b10100111), (0b10101111));
     assert_eq!(formula_trailing_1_to_0(0b10100111), (0b10100000));
@@ -140,7 +144,7 @@ fn test_2_1(){
 }
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
+#[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_basics2() {
     assert_eq!(ntz(12), 2);
     assert_eq!(ntz1(12), 2);

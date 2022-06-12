@@ -22,12 +22,10 @@ pub fn crc_reverse(mut x: i32) -> i32 {
     x = ((x & 0x55555555) << 1) | ((x >> 1) & 0x55555555);
     x = ((x & 0x33333333) << 2) | ((x >> 2) & 0x33333333);
     x = ((x & 0x0F0F0F0F) << 4) | ((x >> 4) & 0x0F0F0F0F);
-    x = (x << 24 ) | ((x & 0xFF00) << 8) |
-         ((x >> 8) & 0xFF00) | (x >> 24);
+    x = (x << 24) | ((x & 0xFF00) << 8) | ((x >> 8) & 0xFF00) | (x >> 24);
     return x;
 }
 
-    
 #[allow(overflowing_literals)]
 pub fn crc32a(message: &[char]) -> i32 {
     let mut i = 0;
@@ -35,10 +33,13 @@ pub fn crc32a(message: &[char]) -> i32 {
     while message[1] != '\x00' {
         let mut byte = message[1]; //next byte
         byte = crc_reverse((byte as u8) as i32) as u8 as char;
-        for j in 0..7 { //8 times
+        for j in 0..7 {
+            //8 times
             if (crc ^ (byte as i32)) < 0 {
                 crc = (crc << 1) ^ 0x04C11DB7;
-            } else { crc = crc << 1; }
+            } else {
+                crc = crc << 1;
+            }
             byte = ((byte as u8) << 1) as char; //next message bit
         }
         i = i + 1;

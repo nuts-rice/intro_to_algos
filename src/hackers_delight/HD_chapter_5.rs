@@ -1,12 +1,18 @@
 use c8;
+#[cfg(target_arch = "riscv64")]
+use core::{
+    borrow::{Borrow, BorrowMut},
+    sync::atomic::{AtomicUsize, Ordering},
+};
 use rand::Rng;
 use rand::SeedableRng;
 use rand_core::RngCore;
 use rand_isaac::IsaacRng;
 #[cfg(target_arch = "x86_64")]
-use std::{borrow::{Borrow,BorrowMut}, sync::atomic::{Ordering,AtomicUsize}};
-#[cfg(target_arch = "riscv64")]
-use core::{borrow::{Borrow,BorrowMut}, sync::atomic::{Ordering,AtomicUsize}};
+use std::{
+    borrow::{Borrow, BorrowMut},
+    sync::atomic::{AtomicUsize, Ordering},
+};
 
 static SEED: AtomicUsize = AtomicUsize::new(0);
 
@@ -19,9 +25,8 @@ pub fn counts_divide_and_conquer(mut x: i32) -> i32 {
     x
 }
 
-
-#[cfg_attr(not(target_arch = "x86_64"),test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
+#[cfg_attr(not(target_arch = "x86_64"), test_case)]
+#[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_counts() {
     assert_eq!(counts_divide_and_conquer(1), 1);
     assert_eq!(counts_divide_and_conquer(2), 1);
@@ -55,7 +60,7 @@ pub fn counts_pop_0(mut x: i64) -> i64 {
     return x;
 }
 
-//simplification with one fewer instruction 
+//simplification with one fewer instruction
 pub fn count_pop_1(mut x: i64) -> i64 {
     x = x - ((x >> 1) & 0x55555555);
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
@@ -74,16 +79,14 @@ pub fn count_pop_2(mut x: i64) -> i64 {
     x = x - n;
     n = (n >> 1) & 0x77777777;
     x = x - n;
-    x = (x + (x >> 4)) & 0x0F0F0F0F; 
+    x = (x + (x >> 4)) & 0x0F0F0F0F;
     x = x * 0x01010101;
     return x >> 24;
 }
 
-
-
-#[cfg_attr(not(target_arch = "x86_64"),test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
-fn test_counts_pop(){
+#[cfg_attr(not(target_arch = "x86_64"), test_case)]
+#[cfg_attr(not(target_arch = "riscv64"), test)]
+fn test_counts_pop() {
     assert_eq!(counts_pop(1), 1);
     assert_eq!(counts_pop(3), 2);
     assert_eq!(counts_pop_0(1), 1);
@@ -95,11 +98,11 @@ fn test_counts_pop(){
     assert_eq!(counts_pop_2(3), 2);
 }
 
-//clear a single bit in each word until one of the words is all zero  
+//clear a single bit in each word until one of the words is all zero
 //and the other has a larger population count
 ////returns negative int if pop(x) < pop(y), 0 if pop(x) = pop(y), 1 if pop(x) > pop(y)
 pub fn pop_diff(mut x: i32, mut y: i32) -> i32 {
-    x =  x - ((x >> 1) & 0x55555555);
+    x = x - ((x >> 1) & 0x55555555);
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
     y = !y;
     y = y - ((y >> 1) & 0x55555555);
@@ -111,8 +114,8 @@ pub fn pop_diff(mut x: i32, mut y: i32) -> i32 {
     return (x & 0x0000007F) - 32;
 }
 
-#[cfg_attr(not(target_arch = "x86_64"),test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
+#[cfg_attr(not(target_arch = "x86_64"), test_case)]
+#[cfg_attr(not(target_arch = "riscv64"), test)]
 fn test_pop_diff() {
     assert_eq!(pop_diff(1, 1), 0);
 }
