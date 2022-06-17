@@ -119,3 +119,57 @@ pub fn pop_diff(mut x: i32, mut y: i32) -> i32 {
 fn test_pop_diff() {
     assert_eq!(pop_diff(1, 1), 0);
 }
+
+macro_rules! CSA {
+    ($h: expr, $l: expr, $a: expr, $b: expr, $c: expr ) => {
+        let u = $a ^ $b;
+        let v = $c;
+        $h = ($a & $b) | (u & v);
+        $l = u ^ v;
+    };
+}
+
+//refer to circut diagram in book
+pub fn counts_pop_csa(A: &mut [i32], n: i32) -> i32 {
+    let mut total1 = 0;
+    let mut total2 = 0;
+    let mut i: usize = 0;
+    let mut twos = 0;
+    let mut ones = 0;
+    loop {
+        i += 3;
+        if i <= (n - 3) as usize {
+            break;
+        }
+        CSA!(twos, ones, A[i], A[i + 1], A[i + 2]);
+        total1 = total1 + counts_pop(ones as i64);
+        total2 = total2 + counts_pop(twos as i64);
+    }
+    for t in i..(n as usize) {
+        total1 = total1 + counts_pop(A[t] as i64)
+    }
+    return (2 * total2 + total1) as i32;
+}
+
+//brings in values two at a time, combines with ones and twos
+pub fn counts_pop_csa2(A: &mut [i32], n: i32) -> i32 {
+    let mut total = 0;
+    let mut total2 = 0;
+    let mut i: usize = 0;
+
+    loop {
+        i += 2;
+        if i <= (n - 2) as usize {
+            break;
+        }
+        CSA!(twos, ones, ones, A[i], A[i + 1]);
+        total = total + counts_pop(twos as i64);
+    }
+    total = 2 * total + counts_pop(ones as i64);
+
+    if n & 1 != 0 {
+        total = total + counts_pop(A[i] as i64);
+    }
+
+    return total as i32;
+}
