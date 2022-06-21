@@ -1,11 +1,9 @@
 #[macro_use]
 extern crate lazy_static;
 
-
 extern crate libc;
 extern crate rand;
 extern crate rand_isaac;
-
 
 pub mod chp_2;
 //pub mod hackers_delight;
@@ -59,7 +57,3 @@ implement_into!([c8,c9,c10,c11,c12,c13,c14], i16);
 implement_from!(c6, [c1, c2, c3, c4, c5]);
 
 */
-
-
-
-

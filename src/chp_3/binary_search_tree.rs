@@ -93,8 +93,8 @@ where
             }
         }
         //Returns largest value in tree smaller than value
-        pub fn floor(&self, value: &T) -> Option<&T>{
-            match &self.value{
+        pub fn floor(&self, value: &T) -> Option<&T> {
+            match &self.value {
                 Some(key) => {
                     match key.cmp(value) {
                         Ordering::Greater => {
@@ -125,7 +125,7 @@ where
         }
 
         //Returns the smallest value in this tree larger than value
-        pub fn ceil(&self, value: &T ) -> Option<&T> {
+        pub fn ceil(&self, value: &T) -> Option<&T> {
             match &self.value {
                 Some(key) => {
                     match key.cmp(value) {
@@ -137,9 +137,9 @@ where
                             }
                         }
                         Ordering::Greater => {
-                            // key > value 
+                            // key > value
                             match &self.left {
-                                Some(node)  => {
+                                Some(node) => {
                                     let val = node.ceil(value);
                                     match val {
                                         Some(_) => val,
@@ -149,12 +149,10 @@ where
                                 None => Some(key),
                             }
                         }
-                        Ordering::Equal => {
-                            Some(key)
-                        }
+                        Ordering::Equal => Some(key),
                     }
                 }
-                B
+
                 None => None,
             }
         }
@@ -173,7 +171,7 @@ where
     T: Ord,
 {
     pub fn new(tree: &BinarySearchTree<T>) -> BinarySearchTreeIter<T> {
-        let mut iter = BinarySearchTreeIter {stack: vec![tree]};
+        let mut iter = BinarySearchTreeIter { stack: vec![tree] };
         iter.stack_push_left();
         iter
     }
@@ -204,10 +202,3 @@ where
         }
     }
 }
-
-
-
-
-
-
-
