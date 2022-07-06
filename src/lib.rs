@@ -6,6 +6,7 @@ extern crate rand;
 extern crate rand_isaac;
 
 pub mod chp_2;
+pub mod chp_3;
 pub mod chp_4;
 //pub mod hackers_delight;
 
