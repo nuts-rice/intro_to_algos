@@ -74,3 +74,20 @@ pub fn lowest_common_ancestor(
 
     return lca_recursive(&root, p_val, q_val);
 }
+
+
+pub fn is_subtree(root: Option<Rc<RefCell<TreeNode>>>,
+                  sub_root: Option<Rc<RefCell<TreeNode>>>)
+    -> bool {
+        if root == sub_root {
+            return true
+        }
+
+        if let Some(node) = root {
+            let node = node.borrow();
+            is_subtree(node.left.clone(), sub_root.clone()) ||
+            is_subtree(node.right.clone(), sub_root.clone())
+        } else {
+            return false
+        }
+    }
