@@ -1,3 +1,4 @@
+use crate::*;
 use HD_chapter_2::{nlz, population_count};
 
 //find leftmost zero byte
@@ -81,4 +82,40 @@ pub fn one_bit1(mut x: i32, mut n: &mut i32) -> i32 {
     }
     *n = nlz((b & c) as u32) as i32;
     return k;
+}
+
+//first string of 1s of n given len
+//can be found in 6 instructions using number of leading zeros
+pub fn ffstr11(mut x: i32, n: i32)-> {
+    let mut p = 0;
+    while x! = 0 {
+        let mut k = nlz(x as u32);
+        x = x << k; //skip over leading zeros
+        p = p + k;
+        k = nlz(!x as u32);
+        if k >= n as u32 {
+            return p as i32
+        } //return if position is enough for N 
+        x = x << k; //else skip over 1s
+        p = p + k;             
+    }
+    return 32;
+}
+
+//first string of 1s of n given len using shif-and sequence
+pub fn ffstr12(mut x: i32, mut n: i32) -> i32 {
+    while n > 1 {
+        let s = n >> 1;
+        let x = x & (x << s);
+        n = n - s;
+    }
+    return nlz(x as u32) as i32;
+}
+
+
+#[cfg_attr(not(target_arch = "x86_64"),test_case)]
+#[cfg_attr(not(target_arch = "riscv64"),test)]
+fn test_search(){
+    assert_eq!(ffstr11(1, 1), 31);
+    assert_eq!(ffstr12(1, 1), 31);
 }
