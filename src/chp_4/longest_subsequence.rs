@@ -79,6 +79,66 @@ pub fn longest_increasing_subsequence<T: Ord + Clone>(input_array: &[T]) -> Vec<
     out.into_iter().rev().collect()
 }
 
+enum Operator {
+    Addition,
+    Substraction,
+    Multiplication,
+    Division,
+}
+
+enum OperationEvaluator {
+    Operator(Operator),
+    Operand(i32),
+}
+
+fn reverse_polish_notation_aux(expr: &str) -> Result<Vec<OperationEvaluator>, String> {
+    expr.split_whitespace()
+        .map(|eval| match eval {
+            "+" => Ok(OperationEvaluator::Operator(Operator::Addition)),
+            "-" => Ok(OperationEvaluator::Operator(Operator::Substraction)),
+            "*" => Ok(OperationEvaluator::Operator(Operator::Multiplication)),
+            "/" => Ok(OperationEvaluator::Operator(Operator::Division)),
+            operand => match operand.parse::<i32>() {
+                Ok(val) => Ok(OperationEvaluator::Operand(val)),
+                Err(_) => Err(format!("Cannot parse operand \"{}\"", operand)),
+            },
+        })
+        .into_iter()
+        .collect()
+}
+
+pub fn reverse_polish_notation(expr: &str) -> Result<i32, String> {
+    return match reverse_polish_notation_aux(expr) {
+        Ok(tokens) => {
+            let mut stack: Vec<i32> = Vec::new();
+            for token in tokens {
+                match token {
+                    OperationEvaluator::Operator(operator) => {
+                        if stack.len() < 2 {
+                            return Err("not enough operands before operator".to_string());
+                        }
+                        let operand2 = stack.pop().expect("expected integer in stack");
+                        let operand1 = stack.pop().expect("expected integer in stack");
+                        let result = match operator {
+                            Operator::Addition => operand1 + operand2,
+                            Operator::Substraction => operand1 - operand2,
+                            Operator::Multiplication => operand1 * operand2,
+                            Operator::Division => operand1 / operand2,
+                        };
+                        stack.push(result);
+                    }
+                    OperationEvaluator::Operand(val) => stack.push(val),
+                }
+            }
+            if stack.len() != 1 {
+                return Err("Missing operator".to_string());
+            }
+            return Ok(stack.pop().expect("expected integer remaining in stack"));
+        }
+        Err(err) => Err(err),
+    };
+}
+
 #[cfg(test)]
 mod tests {
     use super::longest_common_subsequence;
