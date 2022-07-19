@@ -75,19 +75,41 @@ pub fn lowest_common_ancestor(
     return lca_recursive(&root, p_val, q_val);
 }
 
-
-pub fn is_subtree(root: Option<Rc<RefCell<TreeNode>>>,
-                  sub_root: Option<Rc<RefCell<TreeNode>>>)
-    -> bool {
-        if root == sub_root {
-            return true
-        }
-
-        if let Some(node) = root {
-            let node = node.borrow();
-            is_subtree(node.left.clone(), sub_root.clone()) ||
-            is_subtree(node.right.clone(), sub_root.clone())
-        } else {
-            return false
-        }
+pub fn is_subtree(
+    root: Option<Rc<RefCell<TreeNode>>>,
+    sub_root: Option<Rc<RefCell<TreeNode>>>,
+) -> bool {
+    if root == sub_root {
+        return true;
     }
+
+    if let Some(node) = root {
+        let node = node.borrow();
+        is_subtree(node.left.clone(), sub_root.clone())
+            || is_subtree(node.right.clone(), sub_root.clone())
+    } else {
+        return false;
+    }
+}
+fn is_valid_bst_aux(node: &Option<Rc<RefCell<TreeNode>>>, min: i64, max: i64) -> bool {
+    if let Some(n) = node {
+        let v = n.borrow().val as i64;
+
+        if v <= min || v >= max {
+            return false;
+        }
+
+        is_valid_bst_aux(&n.borrow().left, min, v) && is_valid_bst_aux(&n.borrow().right, v, max)
+    } else {
+        true
+    }
+}
+
+pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+    is_valid_bst_aux(&root, i64::MIN, i64::MAX)
+}
+
+#[test]
+fn invert_tree_test() {
+    unimplemented!()
+}
