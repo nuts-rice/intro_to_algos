@@ -55,6 +55,7 @@ impl<T: Clone + Copy + Ord> HuffmanNode<T> {
                 );
             }
             None => {
+                self.get_alphabet(height + 1, path, node.left.as_ref().unwrap(), map);
                 self.get_alphabet(
                     height + 1,
                     path | (1 << height),
@@ -63,5 +64,87 @@ impl<T: Clone + Copy + Ord> HuffmanNode<T> {
                 );
             }
         }
+    }
+}
+
+pub struct HuffmanDictionary<T> {
+    pub alphabet: BTreeMap<T, HuffmanValue>,
+    pub root: HuffmanNode<T>,
+}
+
+//The algorithm builds the tree T corresponding to an
+//optimal code in a bottom-up manner. It begins with a set of | C | leaves
+//and performs a sequence of | C | − 1 “merging” operations to create the
+//ﬁnal tree. The algorithm uses a min-priority queue Q , keyed on the freq
+//attribute, to identify the two least-frequent objects to merge together.
+//The result of merging two objects is a new object whose frequency is the
+//sum of the frequencies of the two objects that were merged.
+impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
+    pub fn new(alphabet: &[(T, u64)]) -> Self {
+        let mut alph: BTreeMap<T, HuffmanValue> = BTreeMap::new();
+        let mut queue: BinaryHeap<HuffmanNode<T>> = BinaryHeap::new();
+        for (symbol, freq) in alphabet.iter() {
+            queue.push(HuffmanNode {
+                left: None,
+                right: None,
+                symbol: Some(*symbol),
+                frequency: *freq,
+            });
+        }
+        for _ in 1..alphabet.len() {
+            let left = queue.pop().unwrap();
+            let right = queue.pop().unwrap();
+            let sm_freq = left.frequency + right.frequency;
+            queue.push(HuffmanNode {
+                left: Some(Box::new(left)),
+                right: Some(Box::new(right)),
+                symbol: None,
+                frequency: sm_freq,
+            });
+        }
+        let root = queue.pop().unwrap();
+        root.get_alphabet(0, 0, &root, &mut alph);
+        HuffmanDictionary {
+            alphabet: alph,
+            root,
+        }
+    }
+
+    pub fn encode(&self, data: &[T]) -> HuffmanEncoding {
+        let mut result = HuffmanEncoding::new();
+        data.iter()
+            .for_each(|value| result.add_data(*self.alphabet.get(value).unwrap()));
+        result
+    }
+}
+
+pub struct HuffmanEncoding {
+    pub num_bits: u64,
+    pub data: Vec<u64>,
+}
+
+impl Default for HuffmanEncoding {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl HuffmanEncoding {
+    pub fn new() -> Self {
+        HuffmanEncoding {
+            num_bits: 0,
+            data: vec![0],
+        }
+    }
+
+    #[inline]
+    pub fn add_data(&mut self, data: HuffmanValue) {
+        let shift = (self.num_bits & 63) as u32;
+        let val = data.value;
+        *self.data.last_mut().unwrap() |= val.wrapping_shl(shift);
+        if (shift + data.bits) >= 64 {
+            self.data.push(val.wrapping_shr(64 - shift));
+        }
+        self.num_bits += data.bits as u64;
     }
 }
