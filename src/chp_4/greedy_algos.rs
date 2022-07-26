@@ -147,4 +147,28 @@ impl HuffmanEncoding {
         }
         self.num_bits += data.bits as u64;
     }
+
+    fn get_bit(&self, pos: u64) -> bool {
+        (self.data[(pos >> 6) as usize] & (1 << (pos & 63))) != 0
+    }
+
+    pub fn decode<T: Clone + Copy + Ord>(&self, dict: &HuffmanDictionary<T>) -> Option<Vec<T>> {
+        let mut state = &dict.root;
+        let mut result: Vec<T> = vec![];
+        for i in 0..self.num_bits {
+            if state.symbol.is_some() {
+                result.push(state.symbol.unwrap());
+                state = &dict.root;
+            }
+            match self.get_bit(i) {
+                false => state = state.left.as_ref().unwrap(),
+                true => state = state.right.as_ref().unwrap(),
+            }
+        }
+
+        if self.num_bits > 0 {
+            result.push(state.symbol?);
+        }
+        Some(result)
+    }
 }
