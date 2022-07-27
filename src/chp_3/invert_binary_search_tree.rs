@@ -1,4 +1,6 @@
 use std::cell::RefCell;
+use std::cmp::{max, min};
+use std::collections::{hash_map::Entry, HashMap, VecDeque};
 use std::rc::Rc;
 
 #[derive(Debug, PartialEq, Eq)]
@@ -107,6 +109,46 @@ fn is_valid_bst_aux(node: &Option<Rc<RefCell<TreeNode>>>, min: i64, max: i64) ->
 
 pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
     is_valid_bst_aux(&root, i64::MIN, i64::MAX)
+}
+
+pub struct Trie<C: std::hash::Hash + Eq> {
+    links: Vec<HashMap<C, usize>>,
+}
+
+impl<C: std::hash::Hash + Eq> Default for Trie<C> {
+    fn default() -> Self {
+        Self {
+            links: vec![HashMap::new()],
+        }
+    }
+}
+
+//Insert word into the trie and retrurn index of its node
+impl<C: std::hash::Hash + Eq> Trie<C> {
+    pub fn insert(&mut self, word: impl IntoIterator<Item = C>) -> usize {
+        let mut node = 0;
+
+        for char in word {
+            let len = self.links.len();
+            node = match self.links[node].entry(char) {
+                Entry::Occupied(entry) => *entry.get(),
+                Entry::Vacant(entry) => {
+                    entry.insert(len);
+                    self.links.push(HashMap::new());
+                    len
+                }
+            }
+        }
+        node
+    }
+
+    pub fn get(&self, word: impl IntoIterator<Item = C>) -> Option<usize> {
+        let mut node = 0;
+        for char in word {
+            node = *self.links[node].get(&char)?;
+        }
+        Some(node)
+    }
 }
 
 #[test]
