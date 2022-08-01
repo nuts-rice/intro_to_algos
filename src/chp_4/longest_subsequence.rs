@@ -108,7 +108,7 @@ fn reverse_polish_notation_aux(expr: &str) -> Result<Vec<OperationEvaluator>, St
 }
 
 pub fn reverse_polish_notation(expr: &str) -> Result<i32, String> {
-    return match reverse_polish_notation_aux(expr) {
+    match reverse_polish_notation_aux(expr) {
         Ok(tokens) => {
             let mut stack: Vec<i32> = Vec::new();
             for token in tokens {
@@ -133,10 +133,10 @@ pub fn reverse_polish_notation(expr: &str) -> Result<i32, String> {
             if stack.len() != 1 {
                 return Err("Missing operator".to_string());
             }
-            return Ok(stack.pop().expect("expected integer remaining in stack"));
+            Ok(stack.pop().expect("expected integer remaining in stack"))
         }
         Err(err) => Err(err),
-    };
+    }
 }
 
 #[cfg(test)]
@@ -153,7 +153,7 @@ mod tests {
     #[test]
     fn longest_increasing_subsequence_test_1() {
         assert_eq!(
-            longest_increasing_subsequence(&vec![10, 9, 2, 5, 3, 7, 101, 18]),
+            longest_increasing_subsequence(&[10, 9, 2, 5, 3, 7, 101, 18]),
             vec![2, 3, 7, 18]
         );
     }

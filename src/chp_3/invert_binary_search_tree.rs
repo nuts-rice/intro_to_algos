@@ -1,19 +1,19 @@
 use std::cell::RefCell;
-use std::cmp::{max, min};
-use std::collections::{hash_map::Entry, HashMap, VecDeque};
+
+use std::collections::{hash_map::Entry, HashMap};
 use std::rc::Rc;
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
     pub val: i32,
-    pub left: Option<Rc<RefCell<TreeNode>>>,
-    pub right: Option<Rc<RefCell<TreeNode>>>,
+    pub left: Option<Rc<RefCell<Self>>>,
+    pub right: Option<Rc<RefCell<Self>>>,
 }
 
 impl TreeNode {
     #[inline]
     pub fn new(val: i32) -> Self {
-        TreeNode {
+        Self {
             val,
             left: None,
             right: None,
@@ -58,7 +58,7 @@ pub fn lca_recursive(
         }
         return Some(Rc::new(RefCell::new(TreeNode::new(v.borrow().val))));
     } else {
-        return None;
+        None
     }
 }
 
@@ -74,7 +74,7 @@ pub fn lowest_common_ancestor(
     let p_val = p.unwrap().borrow_mut().val;
     let q_val = q.unwrap().borrow_mut().val;
 
-    return lca_recursive(&root, p_val, q_val);
+    lca_recursive(&root, p_val, q_val)
 }
 
 pub fn is_subtree(
@@ -88,9 +88,9 @@ pub fn is_subtree(
     if let Some(node) = root {
         let node = node.borrow();
         is_subtree(node.left.clone(), sub_root.clone())
-            || is_subtree(node.right.clone(), sub_root.clone())
+            || is_subtree(node.right.clone(), sub_root)
     } else {
-        return false;
+        false
     }
 }
 fn is_valid_bst_aux(node: &Option<Rc<RefCell<TreeNode>>>, min: i64, max: i64) -> bool {

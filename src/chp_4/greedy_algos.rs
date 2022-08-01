@@ -41,7 +41,7 @@ impl<T: Clone + Copy + Ord> HuffmanNode<T> {
         &self,
         height: u32,
         path: u64,
-        node: &HuffmanNode<T>,
+        node: &Self,
         map: &mut BTreeMap<T, HuffmanValue>,
     ) {
         match node.symbol {
@@ -104,7 +104,7 @@ impl<T: Clone + Copy + Ord> HuffmanDictionary<T> {
         }
         let root = queue.pop().unwrap();
         root.get_alphabet(0, 0, &root, &mut alph);
-        HuffmanDictionary {
+        Self {
             alphabet: alph,
             root,
         }
@@ -131,7 +131,7 @@ impl Default for HuffmanEncoding {
 
 impl HuffmanEncoding {
     pub fn new() -> Self {
-        HuffmanEncoding {
+        Self {
             num_bits: 0,
             data: vec![0],
         }

@@ -1,4 +1,4 @@
-use std::cmp::Ordering;
+
 
 //There are max-priority and min-priority, just like heap-properties
 //Mantains set S of elements, each with associated value called Q
@@ -73,11 +73,11 @@ impl<T: PartialOrd + Default> Priority_Queue<T> {
         }
     }
 
-    fn swim(&mut self, mut k: usize) {
-        return;
+    fn swim(&mut self, _k: usize) {
+        
     }
 
-    fn sink(&mut self, mut k: usize) {
-        return;
+    fn sink(&mut self, _k: usize) {
+        
     }
 }
