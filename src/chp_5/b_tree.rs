@@ -55,6 +55,8 @@ impl BTreeProps {
 
     //split asserts child node is full
     //Move middle_key to parent node and split child node's keys/children into half
+    //splits a full node y (having 2 t − 1 keys) around its median key y .
+    //keyt into two nodes having only t − 1 keys each.
     fn split_child<T: Ord + Copy + Default>(&self, parent: &mut Node<T>, child_index: usize) {
         let child = &mut parent.children[child_index];
         let middle_key = child.keys[self.mid_key_idx];
