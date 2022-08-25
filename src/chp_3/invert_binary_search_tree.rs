@@ -87,8 +87,7 @@ pub fn is_subtree(
 
     if let Some(node) = root {
         let node = node.borrow();
-        is_subtree(node.left.clone(), sub_root.clone())
-            || is_subtree(node.right.clone(), sub_root)
+        is_subtree(node.left.clone(), sub_root.clone()) || is_subtree(node.right.clone(), sub_root)
     } else {
         false
     }

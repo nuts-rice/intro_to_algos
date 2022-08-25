@@ -8,15 +8,15 @@ pub struct DisjointSetUnion {
 }
 
 impl DisjointSetUnion {
-    pub fn new(n: usize)  -> Self {
+    pub fn new(n: usize) -> Self {
         let mut nodes = Vec::new();
         nodes.reserve_exact(n + 1);
         for _i in 0..=n {
-            nodes.push(DSUNode {parent: 1, size: 1});
-        } 
-        Self {nodes}
+            nodes.push(DSUNode { parent: 1, size: 1 });
+        }
+        Self { nodes }
     }
-//finding parent recur sively using path compression
+    //finding parent recur sively using path compression
     pub fn find_set(&mut self, v: usize) -> usize {
         if v == self.nodes[v].parent {
             return v;
@@ -25,7 +25,7 @@ impl DisjointSetUnion {
         self.nodes[v].parent
     }
 
-    pub fn merge(&mut self, u:usize, v:usize) -> usize {
+    pub fn merge(&mut self, u: usize, v: usize) -> usize {
         let mut a = self.find_set(u);
         let mut b = self.find_set(v);
         if a == b {

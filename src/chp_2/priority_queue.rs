@@ -1,5 +1,3 @@
-
-
 //There are max-priority and min-priority, just like heap-properties
 //Mantains set S of elements, each with associated value called Q
 
@@ -73,11 +71,7 @@ impl<T: PartialOrd + Default> Priority_Queue<T> {
         }
     }
 
-    fn swim(&mut self, _k: usize) {
-        
-    }
+    fn swim(&mut self, _k: usize) {}
 
-    fn sink(&mut self, _k: usize) {
-        
-    }
+    fn sink(&mut self, _k: usize) {}
 }
