@@ -1,0 +1,71 @@
+use std::collections::HashSet;
+use std::collections::VecDeque;
+
+pub fn breadth_first_search(graph: &Graph, root: Node, targe: Node) -> Option<Vec<u32>> {
+    let mut visited: HashSet<Node> = HashSet::new();
+    let mut history: Vec<u32> = Vec::new();
+    let mut queue = VecDeque::new();
+
+    visited.insert(root);
+    queue.push_back(root);
+
+    while let Some(current_node) = queue.pop_front() {
+        history.push(current_node.value());
+        if current_node == target {
+            return Some(history);
+        }
+        for neighbor in current_node.neighbors(graph) {
+            if !visited.contains(&neighbor) {
+                visited.insert(neighbor);
+                queue.push_back(neighbor);
+            }
+        }
+    }
+    None
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+pub struct Node(u32);
+
+#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+pub struct Edge(u32, u32);
+
+#[derive(Clone)]
+pub struct Graph {
+    #[allow(dead_code)]
+    nodes: Vec<Node>,
+    edges: Vec<Edge>,
+}
+
+impl Graph {
+    pub fn new(nodes: Vec<Node>, Edges: Vec<Edge>) -> Self {
+        Graph { nodes, edges }
+    }
+}
+
+impl From<u32> for Node {
+    fn from(item: u32) -> Self {
+        Node(item)
+    }
+}
+
+impl Node {
+    pub fn value(&self) -> u32 {
+        self.0
+    }
+
+    pub fn neighbors(&self, graph: &Graph) -> Vec<Node> {
+        graph
+            .edges
+            .iter()
+            .filter(|e| e.0 == self.0)
+            .map(|e| e.1.into())
+            .collect()
+    }
+}
+
+impl From<(u32, u32)> for Edge {
+    fn from(item: (u32, u32)) -> Self {
+        Edge(item.0, item.1)
+    }
+}
