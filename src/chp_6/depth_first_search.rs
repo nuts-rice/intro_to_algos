@@ -1,5 +1,4 @@
-use std::collections::HashSet;
-use std::collections::VecDeque;
+use std::collections::{BTreeMap, HashSet, VecDeque};
 
 pub fn depth_first_search(graph: &Graph, root: Node, target: Node) -> Option<Vec<u32>> {
     let mut visited: HashSet<Node> = HashSet::new();
@@ -24,9 +23,44 @@ pub fn depth_first_search(graph: &Graph, root: Node, target: Node) -> Option<Vec
     None
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+pub fn topological_sort(graph: &Graph<Node, Edge>) -> Vec<Node> {
+    let mut visited: HashSet<Node> = HashSet::new();
+    let mut degree: Vec<u32> = Vec::new();
+    for u in graph.keys() {
+        degree.insert(*u, 0);
+        for (v, _) in graph.get(u).unwrap() {
+            let entry = degree.entry(*v).or_insert(0);
+            *entry += 1;
+        }
+    }
+
+    let mut queue = VecDeque = VecDeque::new();
+    for (u, d) in degree.iter() {
+        if *d == 0 {
+            queue.push_back(*u);
+            visited.insert(*u, true);
+        }
+    }
+
+    let mut ret = Vec::new();
+    while let Some(u) = queue.pop_front() {
+        ret.push(u);
+        if let Some(from_u) = graph.get(&u) {
+            for (v, _) in from_u {
+                *degree.get_mut(v).unwrap() -= 1;
+                if *degree.get(v).unwrap() == 0 {
+                    queue.push_back(*v);
+                    visited.insert(*v, true);
+                }
+            }
+        }
+    }
+    ret
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Ord)]
 pub struct Node(u32);
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Ord)]
 pub struct Edge(u32, u32);
 #[derive(Clone)]
 pub struct Graph {
