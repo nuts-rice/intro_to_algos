@@ -57,7 +57,7 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
 
 #[cfg(test)]
 mod tests {
-    use super::{Graph};
+    use super::Graph;
     use std::collections::BTreeMap;
 
     fn add_edge<V: Ord + Copy, E: Ord + Copy>(graph: &mut Graph<V, E>, v1: V, v2: V, c: E) {
