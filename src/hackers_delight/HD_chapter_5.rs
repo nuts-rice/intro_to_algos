@@ -1,18 +1,11 @@
-use c8;
 #[cfg(target_arch = "riscv64")]
 use core::{
     borrow::{Borrow, BorrowMut},
     sync::atomic::{AtomicUsize, Ordering},
 };
-use rand::Rng;
-use rand::SeedableRng;
-use rand_core::RngCore;
-use rand_isaac::IsaacRng;
+
 #[cfg(target_arch = "x86_64")]
-use std::{
-    borrow::{Borrow, BorrowMut},
-    sync::atomic::{AtomicUsize, Ordering},
-};
+use std::sync::atomic::AtomicUsize;
 
 static SEED: AtomicUsize = AtomicUsize::new(0);
 
@@ -41,14 +34,12 @@ pub fn counts_pop(mut x: i64) -> i64 {
     x = (x + (x >> 4)) & 0x0F0F0F0F;
     x = x + (x >> 8);
     x = x + (x >> 16);
-    return x & 0x0000003F;
+    x & 0x0000003F
 }
 //method of equation (1) improved with "rotate and sum"
-pub fn counts_rotate_1(mut x: u32, n: u32) -> u32 {
-    if n > 63 {
-        ()
-    }
-    return (x.wrapping_shl(n)) | (x.wrapping_shr(32 - n));
+pub fn counts_rotate_1(x: u32, n: u32) -> u32 {
+    if n > 63 {}
+    (x.wrapping_shl(n)) | (x.wrapping_shr(32 - n))
 }
 
 pub fn counts_pop_0(mut x: i64) -> i64 {
@@ -57,7 +48,7 @@ pub fn counts_pop_0(mut x: i64) -> i64 {
     x = (x & 0x0F0F0F0F) + ((x >> 4) & 0x0F0F0F0F);
     x = (x & 0x00FF00FF) + ((x >> 8) & 0x00FF00FF);
     x = (x & 0x0000FFFF) + ((x >> 16) & 0x0000FFFF);
-    return x;
+    x
 }
 
 //simplification with one fewer instruction
@@ -67,35 +58,35 @@ pub fn count_pop_1(mut x: i64) -> i64 {
     x = (x + (x >> 4)) & 0x0F0F0F0F;
     x = x + (x >> 8);
     x = x + (x >> 16);
-    return x & 0x0000003F;
+    x & 0x0000003F
 }
 
 //variation of HAKEMEM algo,
 //counts number of 1s in 4bit nibble, then works on all eight mibbles in parallel
 pub fn count_pop_2(mut x: i64) -> i64 {
     let mut n = (x >> 1) & 0x77777777;
-    x = x - n;
+    x -= n;
     n = (n >> 1) & 0x77777777;
-    x = x - n;
+    x -= n;
     n = (n >> 1) & 0x77777777;
-    x = x - n;
+    x -= n;
     x = (x + (x >> 4)) & 0x0F0F0F0F;
-    x = x * 0x01010101;
-    return x >> 24;
+    x *= 0x01010101;
+    x >> 24
 }
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
-fn test_counts_pop() {
+fn counts_pop_test1() {
     assert_eq!(counts_pop(1), 1);
     assert_eq!(counts_pop(3), 2);
     assert_eq!(counts_pop_0(1), 1);
     assert_eq!(counts_pop_0(3), 2);
     assert_eq!(counts_divide_and_conquer(1), 1);
-    assert_eq!(counts_pop_1(1), 1);
-    assert_eq!(counts_pop_1(3), 2);
-    assert_eq!(counts_pop_2(1), 1);
-    assert_eq!(counts_pop_2(3), 2);
+    assert_eq!(count_pop_1(1), 1);
+    assert_eq!(count_pop_1(3), 2);
+    assert_eq!(count_pop_2(1), 1);
+    assert_eq!(count_pop_2(3), 2);
 }
 
 //clear a single bit in each word until one of the words is all zero
@@ -107,11 +98,11 @@ pub fn pop_diff(mut x: i32, mut y: i32) -> i32 {
     y = !y;
     y = y - ((y >> 1) & 0x55555555);
     y = (y & 0x33333333) + ((y >> 2) & 0x33333333);
-    x = x + y;
+    x += y;
     x = (x & 0x0F0F0F0F) + ((x >> 4) & 0x0F0F0F0F);
     x = x + (x >> 8);
     x = x + (x >> 16);
-    return (x & 0x0000007F) - 32;
+    (x & 0x0000007F) - 32
 }
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
@@ -142,20 +133,22 @@ pub fn counts_pop_csa(A: &mut [i32], n: i32) -> i32 {
             break;
         }
         CSA!(twos, ones, A[i], A[i + 1], A[i + 2]);
-        total1 = total1 + counts_pop(ones as i64);
-        total2 = total2 + counts_pop(twos as i64);
+        total1 += counts_pop(ones as i64);
+        total2 += counts_pop(twos as i64);
     }
     for t in i..(n as usize) {
-        total1 = total1 + counts_pop(A[t] as i64)
+        total1 += counts_pop(A[t] as i64)
     }
-    return (2 * total2 + total1) as i32;
+    (2 * total2 + total1) as i32
 }
 
 //brings in values two at a time, combines with ones and twos
 pub fn counts_pop_csa2(A: &mut [i32], n: i32) -> i32 {
     let mut total = 0;
-    let mut total2 = 0;
+    let _total2 = 0;
     let mut i: usize = 0;
+    let mut twos = 0;
+    let mut ones = 0;
 
     loop {
         i += 2;
@@ -163,13 +156,13 @@ pub fn counts_pop_csa2(A: &mut [i32], n: i32) -> i32 {
             break;
         }
         CSA!(twos, ones, ones, A[i], A[i + 1]);
-        total = total + counts_pop(twos as i64);
+        total += counts_pop(twos as i64);
     }
     total = 2 * total + counts_pop(ones as i64);
 
     if n & 1 != 0 {
-        total = total + counts_pop(A[i] as i64);
+        total += counts_pop(A[i] as i64);
     }
 
-    return total as i32;
+    total as i32
 }

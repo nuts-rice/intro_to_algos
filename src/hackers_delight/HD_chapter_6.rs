@@ -1,9 +1,8 @@
-use crate::*;
-use HD_chapter_2::{nlz, population_count};
+use super::HD_chapter_2::nlz;
 
 //find leftmost zero byte
 pub fn zbyte1(x: i64) -> i64 {
-    return if (x >> 24) == 0 {
+    if (x >> 24) == 0 {
         0
     } else if (x & 0x00FF0000) == 0 {
         1
@@ -13,7 +12,7 @@ pub fn zbyte1(x: i64) -> i64 {
         3
     } else {
         4
-    };
+    }
 }
 
 //branch free zero byte
@@ -23,31 +22,31 @@ pub fn zbyte2(x: i64) -> i64 {
     let mut y = (x & 0x7F7F7F7F) + 0x7F7F7F7F; //1xxxxxxx
     y = !(y | x | 0x7F7F7F7F); //80 00 00 00 00 etc
     let n = nlz(y as u32) >> 3;
-    return n as i64;
+    n as i64
 }
 
 //find left most 0-byte not using nlz
 pub fn zbyte3(x: i64) -> i64 {
     let mut y = (x & 0x7F7F7F7F) + 0x7F7F7F7F;
     y = !(y | x | 0x7F7F7F7F);
-    return if y == 0 {
+    if y == 0 {
         4
     } else if y > 0x0000FFFF {
         (y >> 31) ^ 1
     } else {
         (y >> 15) ^ 3
-    };
+    }
 }
 
 //find leftmost byte having less than 9
 pub fn le_9_byte(x: i64) -> i64 {
     let mut y = (x & 0x7F7F7F7F) + 0x76767676;
-    y = y | x;
-    y = y | 0x7F7F7F7F; // > 9 are 0xFF
+    y |= x;
+    y |= 0x7F7F7F7F; // > 9 are 0xFF
     y = !y; // 0x00
             //<= 9 are 0x80
     let n = nlz(y as u32) >> 3;
-    return n as i64;
+    n as i64
 }
 
 //left most uppercase letter
@@ -55,17 +54,17 @@ pub fn uppercase_byte(x: i64) -> i64 {
     let mut d = ((x as i64 | 0x80808080) - 0x41414141) as i64;
     d = !((x | 0x7F7F7F7F) ^ d);
     let mut y = (d & 0x7F7F7F7F) + 0x66666666;
-    y = y | d;
-    y = y | 0x7F7F7F7F; //0xFF again
+    y |= d;
+    y |= 0x7F7F7F7F; //0xFF again
     y = !y; //0x00 again
     let n = nlz(y as u32) >> 3;
-    return n as i64;
+    n as i64
 }
 
 //finds length and position of shortest contiguous string of 1s in word
 //if n-consecutive 1-bits are found, returns number 0 to 31, otherwise if
 //not found returns 32
-pub fn one_bit1(mut x: i32, mut n: &mut i32) -> i32 {
+pub fn one_bit1(x: i32, n: &mut i32) -> i32 {
     if x == 0 {
         *n = 32;
         return 0;
@@ -77,45 +76,44 @@ pub fn one_bit1(mut x: i32, mut n: &mut i32) -> i32 {
         if b & c != 0 {
             break;
         }
-        c = c << 1;
+        c <<= 1;
         k += 1;
     }
     *n = nlz((b & c) as u32) as i32;
-    return k;
+    k
 }
 
 //first string of 1s of n given len
 //can be found in 6 instructions using number of leading zeros
-pub fn ffstr11(mut x: i32, n: i32)-> {
+pub fn ffstr11(mut x: i32, n: i32) -> i32 {
     let mut p = 0;
-    while x! = 0 {
+    while x != 0 {
         let mut k = nlz(x as u32);
-        x = x << k; //skip over leading zeros
-        p = p + k;
+        x <<= k; //skip over leading zeros
+        p += k;
         k = nlz(!x as u32);
         if k >= n as u32 {
-            return p as i32
-        } //return if position is enough for N 
-        x = x << k; //else skip over 1s
-        p = p + k;             
+            return p as i32;
+        } //return if position is enough for N
+        x <<= k; //else skip over 1s
+        p += k;
     }
-    return 32;
+    32
 }
 
 //first string of 1s of n given len using shif-and sequence
-pub fn ffstr12(mut x: i32, mut n: i32) -> i32 {
+pub fn ffstr12(x: i32, mut n: i32) -> i32 {
     while n > 1 {
         let s = n >> 1;
-        let x = x & (x << s);
-        n = n - s;
+        let _x = x & (x << s);
+        n -= s;
     }
-    return nlz(x as u32) as i32;
+    nlz(x as u32) as i32
 }
 
-
-#[cfg_attr(not(target_arch = "x86_64"),test_case)]
-#[cfg_attr(not(target_arch = "riscv64"),test)]
-fn test_search(){
+#[cfg_attr(not(target_arch = "x86_64"), test_case)]
+#[cfg_attr(not(target_arch = "riscv64"), test)]
+fn search_test1() {
     assert_eq!(ffstr11(1, 1), 31);
     assert_eq!(ffstr12(1, 1), 31);
 }

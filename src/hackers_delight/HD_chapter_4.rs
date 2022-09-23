@@ -67,7 +67,7 @@ pub fn boundsSub(a: i64, b: i64, c: i64, d: i64) -> (i64, i64) {
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
-fn test_boundsSub() {
+fn boundsSub_test1() {
     let test = [[
         0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     ]];

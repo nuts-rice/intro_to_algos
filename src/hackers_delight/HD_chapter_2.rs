@@ -1,5 +1,3 @@
-use crate::*;
-
 //2-1 manipulating rightmost bits
 
 //use formula: 'x&(x -1)' to turn off the rightmost 1 bit in a word, producing 0 if none
@@ -38,7 +36,7 @@ pub fn formula_rightmost_1_to_0(x: u8) -> u8 {
 
 //turn off rightmost continous string of 1s
 pub fn formula_turnoff_rightmost_1s(x: u8) -> u8 {
-    (x | (x - 1)) + (1) & 1
+    ((x | (x - 1)) + (1)) & 1
 }
 
 //Demorgan's Laws
@@ -58,20 +56,20 @@ pub fn ntz(mut x: u32) -> u32 {
     }
     let mut n = 1;
     if (x & 0x0000FFFF) == 0 {
-        n = n + 16;
-        x = x >> 16;
+        n += 16;
+        x >>= 16;
     }
     if (x & 0x000000FF) == 0 {
-        n = n + 8;
-        x = x >> 8;
+        n += 8;
+        x >>= 8;
     }
     if (x & 0x0000000F) == 0 {
-        n = n + 4;
-        x = x >> 4;
+        n += 4;
+        x >>= 4;
     }
     if (x & 0x00000003) == 0 {
-        n = n + 2;
-        x = x >> 2;
+        n += 2;
+        x >>= 2;
     }
     n - (x & 1)
 }
@@ -82,25 +80,25 @@ pub fn nlz(mut x: u32) -> u32 {
     }
     let mut n = 0;
     if x <= 0x0000FFFF {
-        n = n + 16;
-        x = x << 16;
+        n += 16;
+        x <<= 16;
     }
     if x <= 0x00FFFFFF {
-        n = n + 8;
-        x = x << 8;
+        n += 8;
+        x <<= 8;
     }
     if x <= 0x0FFFFFFFF {
-        n = n + 4;
-        x = x << 4;
+        n += 4;
+        x <<= 4;
     }
     if x <= 0x3FFFFFFF {
-        n = n + 2;
-        x = x << 2;
+        n += 2;
+        x <<= 2;
     }
     if x <= 0x7FFFFFF {
-        n = n + 1;
+        n += 1;
     }
-    return n;
+    n
 }
 
 pub fn population_cnt(mut x: u32) -> u32 {
@@ -112,18 +110,18 @@ pub fn population_cnt(mut x: u32) -> u32 {
     x >> 24
 }
 
-pub fn ntz1(mut x: u32) -> u32 {
-    return 32 - nlz(!x & (x - 1));
+pub fn ntz1(x: u32) -> u32 {
+    32 - nlz(!x & (x - 1))
 }
 
-pub fn ntz2(mut x: u32) -> u32 {
-    return population_cnt(!x & (x - 1));
+pub fn ntz2(x: u32) -> u32 {
+    population_cnt(!x & (x - 1))
 }
 
 //Snoob: bit shifting for continous 1s or 0s
 // given that theres subsets of 1s or 0s, we can find rightmost continous group of 1s in x and following 0s
 // then we can "increment" that quantity to the next value that has the same number of 1s
-pub fn snoob0(mut x: i32) -> i32 {
+pub fn snoob0(x: i32) -> i32 {
     let mut smallest = 0;
     let mut ripple = 0;
     let mut ones = 0;
@@ -131,12 +129,12 @@ pub fn snoob0(mut x: i32) -> i32 {
     ripple = x + smallest;
     ones = x ^ ripple;
     ones = (ones >> 2) / smallest;
-    return ripple | ones;
+    ripple | ones
 }
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
-fn test_2_1() {
+fn chap_2_1_test() {
     assert_eq!(formula_get_and(0b01011000), (0b001010000));
     assert_eq!(formula_get_or(0b10100111), (0b10101111));
     assert_eq!(formula_trailing_1_to_0(0b10100111), (0b10100000));
@@ -145,7 +143,7 @@ fn test_2_1() {
 
 #[cfg_attr(not(target_arch = "x86_64"), test_case)]
 #[cfg_attr(not(target_arch = "riscv64"), test)]
-fn test_basics2() {
+fn basics2_test() {
     assert_eq!(ntz(12), 2);
     assert_eq!(ntz1(12), 2);
     assert_eq!(ntz2(12), 2);
