@@ -82,7 +82,7 @@ pub fn miller_rabbin(number: u64, bases: &[u64]) -> u64 {
     if bases.contains(&number) {
         return 0;
     }
-    let two_power: u64 = (number - 1).trailing_zeroes() as u64;
+    let two_power: u64 = (number - 1).trailing_zeros() as u64;
     let odd_power = (number - 1) >> two_power;
     for base in bases {
         if !is_prime_base(number, *base, two_power, odd_power) {
@@ -90,4 +90,104 @@ pub fn miller_rabbin(number: u64, bases: &[u64]) -> u64 {
         }
     }
     0
+}
+
+fn pollard_rho(number: u64, x0: u64, c: u64, iteration_first: u32, iterations_second: u32) -> u64 {
+    let mut x = x0 as u128;
+    let mut x_start = 0_u128;
+    let mut y = 0_u128;
+    let mut remainder = 1_u128;
+    let mut current_gcd = 1_u64;
+    let mut max_iter = 1_u32;
+    while current_gcd == 1 {
+        y = x;
+        for _ in 1..max_iter {
+            x = advance(x, c, number);
+        }
+        let mut big_iter = 0_u32;
+        while big_iter < max_iter && current_gcd == 1 {
+            x_start = x;
+            let mut small_iter = 0_u32;
+            while small_iter < iteration_first && small_iter < (max_iter - big_iter) {
+                small_iter += 1;
+                x = advance(x, c, number);
+                let diff = x.abs_diff(y);
+                remainder = (remainder * diff) % number as u128;
+            }
+            current_gcd = gcd(remainder as u64, number);
+            big_iter += iteration_first;
+        }
+        max_iter *= 2;
+        if max_iter > iterations_second {
+            break;
+        }
+    }
+    if current_gcd == number {
+        while current_gcd == 1 {
+            x_start = advance(x_start, c, number);
+            current_gcd = gcd(x_start.abs_diff(y) as u64, number);
+        }
+    }
+    current_gcd
+}
+
+pub fn pollard_rho_first(number: u64, seed: &mut u32, is_prime: bool) -> u64 {
+    let mut rng = LinearCongruenceGenerator::new(1103515245, 12345, *seed);
+    if number <= 1 {
+        return number;
+    }
+    if is_prime {
+        let mut bases = vec![2u64, 3, 5, 7];
+        if number > 3_215_031_000 {
+            bases.append(&mut vec![11, 13, 17, 19, 23, 29, 31, 37]);
+        }
+
+        if miller_rabbin(number, &bases) == 0 {
+            return number;
+        }
+    }
+    let mut factor = 1u64;
+    while factor == 1 || factor == number {
+        let x = rng.get_64bits();
+        let c = rng.get_64bits();
+        factor = pollard_rho(
+            number,
+            (x % (number - 3)) + 2,
+            (c % (number - 2)) + 1,
+            32,
+            1 << 18,
+        );
+    }
+    *seed = rng.state;
+    factor
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    fn is_factor(number: u64, factor: u64) -> bool {
+        factor > 1 && factor < number && ((number % factor) == 0)
+    }
+
+    fn factorization_test(number: u64, factors: &[u64]) -> bool {
+        let bases = vec![2u64, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37];
+        let mut product = 1_u64;
+        let mut prime_check = 0_u64;
+        for p in factors {
+            product *= *p;
+            prime_check |= miller_rabbin(*p, &bases);
+        }
+        prime_check == 0 && product == number
+    }
+
+    #[test]
+    fn factor_test() {
+        let numbers = vec![1235, 455459];
+        let mut seed = 31459_u32;
+        for num in numbers {
+            let factor = pollard_rho_first(num, &mut seed, true);
+            assert!(is_factor(num, factor));
+        }
+    }
 }
