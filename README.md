@@ -62,16 +62,24 @@ Handbook of Applied Cryptography
   [] Chapter 6 TODO: tests
 
   [X] Chapter 11
+
+**Cryptanalysis** 
+
+ [] Differental analysis of FEAL-4 [WIP]
  
- **Handbook of Applied Cryptography: Number Theoretic Algorithms**
+**Handbook of Applied Cryptography: Number Theoretic Algorithms**
 
   [] Integer Factorization
 
   [] RSA problem
 
-  [] Qudratic Resuidity
+  [X] Pollard rho factorization
+
+  [X] Qudratic Resuidity
 
   [] Sqroot modulo n
+
+  [X] Baby Step Giant Step
 
   [] Discrete lograthm
 
@@ -81,4 +89,8 @@ Handbook of Applied Cryptography
 
   [] Composite Moduli 
 
-  [] Subset Sum
+  [] Subset Sum [WIP: need subset of n] 
+
+**Handbook of Applied Cryptography: Public-Key-Parameters**
+
+  [X] Miller Rabin test for primality
