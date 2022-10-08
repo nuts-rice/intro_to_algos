@@ -77,7 +77,7 @@ fn _encrypt(plaintext: u64) -> u128{
 
 fn gen_subkeys(seed: u32){
     let mut rng: u32 = rng.gen();    
-    for(i = 0; i < 6; i++){
+    for(i = 0, i < 6, i++){
         subkeys[i] = (rng.gen() << 16) | (rng.gen() & 0xFFFF);
         subkeys[i] = subkeys[i]%10000;
     }
@@ -91,4 +91,80 @@ let mut plain_1 : u128;
 let mut cipher_1 : u128;
 
     
+fn undo_final_op() {
+    for(i = 0, i < num_of_plain, i++) {
+        cipher_left_0 = left_half(cipher_0[i]);
+        cipher_right_0 = right_half(cipher_0[i]) ^ cipher_left_0;
+        
+        cipher_left_1 = left_half(cipher_1[i]);
+        cipher_right_1 = right_half(cipher_1[i]) ^ cipher_left_1;
 
+        cipher_0[i] = combine_halves(cipher_left_0, cipher_right_0);
+        cipher_1[i] = combine_halves(cipher_left_1, cipher_right_1);                      
+    
+    }
+}
+
+fn crack_last_round(outdiff: u64) -> u64 {
+    println!("Cracking output differental of 0x{:?}", outdiff);
+
+    let mut fake_k: u64;
+    for (fake_k = 0x00000000, fakeK < 0xFFFFFFFF, fakeK++) {
+        //score for when calculated differntal matches actual
+        let mut score : u32;
+        for (c = 0, c < num_of_plain, c++){
+            let mut cipher_left: u128 = (cipher_0[c] >> 32);
+            cipher_left ^= (cipher_1[c] >> 32);
+            let mut cipher_right: u128 = cipher_0[c] & 0xFFFFFFFF;
+            cipher_right ^= (cipher_1[c] & 0xFFFFFFFF);
+
+            let mut Y: u64 = cipher_right;
+            let mut Z: u64 = cipher_left ^ outdiff;
+
+            let mut fake_right: u128 = cipher_0[c] & 0xFFFFFFFF;
+            let mut fake_left: u128 = cipher_0[c] >> 32;
+            let mut fake_right_2: u128 = cipher_1[c] & 0xFFFFFFFF;
+            let mut fake_left_2: u128 = cipher_1[c] >> 32;
+
+
+            let mut Y0 = fake_right;
+            let mut Y1 = fake_right_2;
+            
+            //faked input and output
+            let mut fake_in_0 = Y0 ^ fake_k;
+            let mut fake_in_1 = Y1 ^ fake_k;
+            let mut fake_out_0 = f_box(fake_in_0);
+            let mut fake_out_1 = f_box(fake_in_1);
+            let mut fake_diff = fake_out_0 ^ fake_out_1;
+
+            if (fake_diff == Z){
+                score+= 1;
+            } else {
+                break;
+            }
+
+            if(score == num_of_plain){
+                println!("found subkey: 0x{:?}", fake_k);
+                fake_k;
+            }
+        }
+        println!("didnt find subkey");
+        0;
+    }
+}
+
+fn chosen_plain(diff: u128) {
+    println!("generating {} chosen-plaintext pairs
+             using input differental of 0x{:?}", num_of_plain, diff);
+    for(c: u32 = 0; c < num_of_plain; c++){
+        let mut plain_0[c]: u128 = (rand.rng() & 0xFFFF) << 48; 
+        plain_0[c] += (rand.rng() & 0xFFFF) << 32;
+        plain_0[c] += (rand.rng() & 0xFFFF) << 16;
+        plain_0[c] += (rand.rng() & 0xFFFF);
+
+        cipher_0[c] = _encrypt(plain_0[c]);
+        //other half of pair uses input differental 
+        plain_1[c] = plain_0[c] ^ diff;
+        cipher_1[c] = _encrypt(plain_1[c]);
+    }
+}

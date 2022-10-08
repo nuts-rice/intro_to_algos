@@ -9,8 +9,8 @@ pub mod chp_2;
 pub mod chp_3;
 pub mod chp_4;
 pub mod chp_6;
-pub mod hackers_delight;
 pub mod cryptographic_algos;
+pub mod hackers_delight;
 //pub mod hackers_delight;
 
 /*
