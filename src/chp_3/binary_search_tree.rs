@@ -19,7 +19,7 @@ where
     }
 }
 
-impl<T> BinarySearchTree<T>
+impl BinarySearchTree<T>{
 where
     T: Ord,
 {
@@ -124,6 +124,7 @@ where
             }
         }
 
+
         //Returns the smallest value in this tree larger than value
         pub fn ceil(&self, value: &T) -> Option<&T> {
             match &self.value {
@@ -154,6 +155,23 @@ where
                 }
 
                 None => None,
+            }
+        }
+    }
+    pub fn find_bst_paths(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
+        let mut res = Vec::new();
+        find_bst_paths_aux(root, "".to_owned(), &mut res);
+        res
+    }
+
+    fn find_bst_paths_aux(root: Option<Rc<RefCell<TreeNode>>>, path: String, res: &mut Vec<String>) {
+        if let Some(inner) = root {
+            if inner.borrow().left.is_none() && inner.borrow().right.is_none() {
+                res.push(format!("{}{}", path, inner.borrow().val));
+            } else {
+                let path = format!("{}{}->", path, inner.borrow().val);
+                find_bst_paths_aux(inner.borrow().left.clone(), path.clone(), res);
+                find_bst_paths_aux(inner.borrow().right.clone(), path, res);
             }
         }
     }
@@ -200,5 +218,15 @@ where
             }
             node.value.as_ref()
         }
+    }
+}
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn find_bst_paths_test() {
+        assert_eq!(find_bst_paths(BinarySearchTree[1,2,3,null, 5]),
+        ("1->2->5", "1->3"));
     }
 }

@@ -110,6 +110,24 @@ pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
     is_valid_bst_aux(&root, i64::MIN, i64::MAX)
 }
 
+pub fn find_bst_paths(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
+    let mut res = Vec::new();
+    find_bst_paths_aux(root, "".to_owned(), &mut res);
+    res
+}
+
+fn find_bst_paths_aux(root: Option<Rc<RefCell<TreeNode>>>, path: String, res: &mut Vec<String>) {
+    if let Some(inner) = root {
+        if inner.borrow().left.is_none() && inner.borrow().right.is_none() {
+            res.push(format!("{}{}", path, inner.borrow().val));
+        } else {
+            let path = format!("{}{}->", path, inner.borrow().val);
+            find_bst_paths_aux(inner.borrow().left.clone(), path.clone(), res);
+            find_bst_paths_aux(inner.borrow().right.clone(), path, res);
+        }
+    }
+}
+
 pub struct Trie<C: std::hash::Hash + Eq> {
     links: Vec<HashMap<C, usize>>,
 }
@@ -149,8 +167,14 @@ impl<C: std::hash::Hash + Eq> Trie<C> {
         Some(node)
     }
 }
+#[cfg(test)]
+mod test {
+    use super::*;
 
-#[test]
-fn invert_tree_test() {
-    unimplemented!()
+    #[test]
+    fn invert_tree_test() {
+        unimplemented!()
+    }
+
 }
+    
