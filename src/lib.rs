@@ -5,12 +5,29 @@ extern crate libc;
 extern crate rand;
 extern crate rand_isaac;
 
+use rand::prelude::*;
+
+
 pub mod chp_2;
 pub mod chp_3;
 pub mod chp_4;
 pub mod chp_6;
 pub mod cryptographic_algos;
 pub mod hackers_delight;
+
+
+pub fn random_u64() -> u64 {
+    let mut result: u64 = 0;
+    let mut buffer: [u8; 8] = [0; 8];
+    let mut rng = rand::thread_rng();
+    rng.fill_bytes(&mut buffer);
+    for &buf in buffer.iter() {
+        result <<= 8;
+        result |= buf as u64;
+    }
+    result
+}
+
 //pub mod hackers_delight;
 
 /*

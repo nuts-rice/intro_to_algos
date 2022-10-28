@@ -1,6 +1,8 @@
 use std::cmp::Ordering;
 use std::ops::Deref;
 
+/// This struct implements as Binary Search Tree (BST), which is a
+/// simple data structure for storing sorted data
 pub struct BinarySearchTree<T>
 where
     T: Ord,
@@ -19,10 +21,11 @@ where
     }
 }
 
-impl BinarySearchTree<T>{
+impl<T> BinarySearchTree<T>
 where
     T: Ord,
 {
+    /// Create a new, empty BST
     pub fn new() -> BinarySearchTree<T> {
         BinarySearchTree {
             value: None,
@@ -31,28 +34,42 @@ where
         }
     }
 
+    /// Find a value in this tree. Returns True iff value is in this
+    /// tree, and false otherwise
     pub fn search(&self, value: &T) -> bool {
         match &self.value {
-            Some(key) => match key.cmp(value) {
-                Ordering::Equal => true,
-                Ordering::Greater => match &self.left {
-                    Some(node) => node.search(value),
-                    None => false,
-                },
-
-                Ordering::Less => match &self.right {
-                    Some(node) => node.search(value),
-                    None => false,
-                },
-            },
+            Some(key) => {
+                match key.cmp(value) {
+                    Ordering::Equal => {
+                        // key == value
+                        true
+                    }
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => node.search(value),
+                            None => false,
+                        }
+                    }
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => node.search(value),
+                            None => false,
+                        }
+                    }
+                }
+            }
             None => false,
         }
     }
 
+    /// Returns a new iterator which iterates over this tree in order
     pub fn iter(&self) -> impl Iterator<Item = &T> {
         BinarySearchTreeIter::new(self)
     }
 
+    /// Insert a value into the appropriate location in this tree.
     pub fn insert(&mut self, value: T) {
         if self.value.is_none() {
             self.value = Some(value);
@@ -78,101 +95,88 @@ where
                 }
             }
         }
-
-        pub fn minimum(&self) -> Option<&T> {
-            match &self.left {
-                Some(node) => node.minimum(),
-                None => self.value.as_ref(),
-            }
-        }
-
-        pub fn maximum(&self) -> Option<&T> {
-            match &self.right {
-                Some(node) => node.maximum(),
-                None => self.value.as_ref(),
-            }
-        }
-        //Returns largest value in tree smaller than value
-        pub fn floor(&self, value: &T) -> Option<&T> {
-            match &self.value {
-                Some(key) => {
-                    match key.cmp(value) {
-                        Ordering::Greater => {
-                            //key > value
-                            match &self.left {
-                                Some(node) => node.floor(value),
-                                Node => None,
-                            }
-                        }
-                        Ordering::Less => {
-                            // key < value
-                            match &self.right {
-                                Some(node) => {
-                                    let val = node.floor(value);
-                                    match val {
-                                        Some(_) => val,
-                                        None => Some(key),
-                                    }
-                                }
-                                None => Some(key),
-                            }
-                        }
-                        Ordering::Equal => Some(key),
-                    }
-                }
-                None => None,
-            }
-        }
-
-
-        //Returns the smallest value in this tree larger than value
-        pub fn ceil(&self, value: &T) -> Option<&T> {
-            match &self.value {
-                Some(key) => {
-                    match key.cmp(value) {
-                        Ordering::Less => {
-                            //key < value
-                            match &self.right {
-                                Some(node) => node.ceil(value),
-                                None => None,
-                            }
-                        }
-                        Ordering::Greater => {
-                            // key > value
-                            match &self.left {
-                                Some(node) => {
-                                    let val = node.ceil(value);
-                                    match val {
-                                        Some(_) => val,
-                                        None => Some(key),
-                                    }
-                                }
-                                None => Some(key),
-                            }
-                        }
-                        Ordering::Equal => Some(key),
-                    }
-                }
-
-                None => None,
-            }
-        }
-    }
-    pub fn find_bst_paths(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
-        let mut res = Vec::new();
-        find_bst_paths_aux(root, "".to_owned(), &mut res);
-        res
     }
 
-    fn find_bst_paths_aux(root: Option<Rc<RefCell<TreeNode>>>, path: String, res: &mut Vec<String>) {
-        if let Some(inner) = root {
-            if inner.borrow().left.is_none() && inner.borrow().right.is_none() {
-                res.push(format!("{}{}", path, inner.borrow().val));
-            } else {
-                let path = format!("{}{}->", path, inner.borrow().val);
-                find_bst_paths_aux(inner.borrow().left.clone(), path.clone(), res);
-                find_bst_paths_aux(inner.borrow().right.clone(), path, res);
+    /// Returns the smallest value in this tree
+    pub fn minimum(&self) -> Option<&T> {
+        match &self.left {
+            Some(node) => node.minimum(),
+            None => self.value.as_ref(),
+        }
+    }
+
+    /// Returns the largest value in this tree
+    pub fn maximum(&self) -> Option<&T> {
+        match &self.right {
+            Some(node) => node.maximum(),
+            None => self.value.as_ref(),
+        }
+    }
+
+    /// Returns the largest value in this tree smaller than value
+    pub fn floor(&self, value: &T) -> Option<&T> {
+        match &self.value {
+            Some(key) => {
+                match key.cmp(value) {
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => node.floor(value),
+                            None => None,
+                        }
+                    }
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => {
+                                let val = node.floor(value);
+                                match val {
+                                    Some(_) => val,
+                                    None => Some(key),
+                                }
+                            }
+                            None => Some(key),
+                        }
+                    }
+                    Ordering::Equal => Some(key),
+                }
             }
+            None => None,
+        }
+    }
+
+    /// Returns the smallest value in this tree larger than value
+    pub fn ceil(&self, value: &T) -> Option<&T> {
+        match &self.value {
+            Some(key) => {
+                match key.cmp(value) {
+                    Ordering::Less => {
+                        // key < value
+                        match &self.right {
+                            Some(node) => node.ceil(value),
+                            None => None,
+                        }
+                    }
+                    Ordering::Greater => {
+                        // key > value
+                        match &self.left {
+                            Some(node) => {
+                                let val = node.ceil(value);
+                                match val {
+                                    Some(_) => val,
+                                    None => Some(key),
+                                }
+                            }
+                            None => Some(key),
+                        }
+                    }
+                    Ordering::Equal => {
+                        // key == value
+                        Some(key)
+                    }
+                }
+            }
+            None => None,
         }
     }
 }
@@ -218,15 +222,5 @@ where
             }
             node.value.as_ref()
         }
-    }
-}
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn find_bst_paths_test() {
-        assert_eq!(find_bst_paths(BinarySearchTree[1,2,3,null, 5]),
-        ("1->2->5", "1->3"));
     }
 }

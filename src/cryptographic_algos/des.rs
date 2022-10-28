@@ -58,7 +58,7 @@ fn f(block: u64, key: u64) -> u64 {
     let mask: u64 = 0b111111;
     for (i, sbox) in tables::BOXES.iter().enumerate() {
         let val: u64 = (temp & (mask << (42 - (i * 6)))) >> (42 - (i * 6));
-        res = (res << 4) | sbox[tables::BOX_LOOKUP[val as usize]] as u64
+        res = (res << 4) | sbox[tables::BOX_LOOKUP[val as usize]] as u64;
     }
     permute(res, 32, &tables::P)
 }
@@ -93,6 +93,37 @@ pub fn decrypt(block: u64, keys: [u64; 16]) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::random_u64;
+
+    #[test]
+    //Should return the same value
+    fn permute_invariant_test() {
+        for _ in 0..1000 {
+            let block: u64 = random_u64();
+            assert_eq!(
+                block,
+                permute(permute(block, 64, &tables::IP), 64, &tables::IIP),
+                "failed at input: {}",
+                block
+            );
+        }
+    }
+
+    #[test]
+    fn encrypt_decrypt_invariant_test() {
+        for _ in 0..1000 {
+            let sample_inp: u64 = random_u64();
+            let sample_key: u64 = random_u64();
+
+            let keys = gen_round_keys(sample_key);
+            assert_eq!(
+                sample_inp,
+                decrypt(encrypt(sample_inp, keys), keys),
+                "failed at input: {}",
+                sample_inp
+            );
+        }
+    }
 
     #[test]
     fn encrypt_test() {
