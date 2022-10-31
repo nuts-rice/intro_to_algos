@@ -82,6 +82,38 @@ impl<T: ToString> MerkleTree<T> {
         II: IntoIterator,
         II::Item: ToString + Clone,
     {
-        unimplemented!();
+        let leaves = _items.into_iter().collect::<Vec<_>>();
+        let mut layer: Vec<_> = leaves.iter().cloned().map(new_leaf).collect();
+        while layer.len() != 1 {
+            layer = build_layer(layer);
+        }
+
+        match layer.pop() {
+            Some(root) => MerkleTree { root, leaves },
+            None => panic!("empty tree"),
+        }
+    }
+
+    pub fn get_root(&self) -> String {
+        self.root.hash.clone()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn merkle_tree_equal_invariant_test() {
+        let hashed = vec![
+            "FJISJIOFJWIOSJFIW4JERIOFJWIJFJ4I59834985928RFSEKSAJIFAJ324148CVJKSJ",
+            "RWIUR83485U834U85U84IJ563U4UT8UGDIUITGUWW958T3495598938593859038958",
+            "R23UI249358VGMXVSIF43U953UTUUBD0VUE9UT3959U3905UGJSNNJFGUUI3WUU35T5",
+            "DK3QOQ23I4OI92I499289458FJISJIGJTIWEJITU8I3U85U803U90593U95U9UJGEME",
+            "DFIIRJ2IJFSTJ3I60-98G9X9GISGOKOWKO5I3985989VBKDF,GOE9TI93I9T93I9TK9",
+        ];
+        let hashed_clone = hashed.clone();
+        let tree_1 = MerkleTree::<&str>::from_leaves(hashed);
+        let tree_2 = MerkleTree::<&str>::from_leaves(hashed_clone);
+        assert_eq!(tree_1.get_root(), tree_2.get_root());
     }
 }
