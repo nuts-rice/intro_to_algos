@@ -7,14 +7,13 @@ extern crate rand_isaac;
 
 use rand::prelude::*;
 
-
 pub mod chp_2;
 pub mod chp_3;
 pub mod chp_4;
 pub mod chp_6;
 pub mod cryptographic_algos;
 pub mod hackers_delight;
-
+pub mod talent_plan_PNA_3;
 
 pub fn random_u64() -> u64 {
     let mut result: u64 = 0;
