@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub enum Result {
+pub enum Request {
     Get { key: String },
     Set { key: String },
     Remove { key: String },
