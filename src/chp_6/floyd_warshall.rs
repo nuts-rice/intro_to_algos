@@ -41,7 +41,7 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
                     Some(&e) => {
                         if e > entry_i_k + entry_k_j {
                             map.entry(i)
-                                .or_insert(BTreeMap::new())
+                                .or_default()
                                 .insert(j, entry_i_k + entry_k_j);
                         }
                     }
