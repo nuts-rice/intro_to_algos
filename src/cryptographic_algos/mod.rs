@@ -5,6 +5,7 @@ mod merkle_tree;
 mod pollards;
 mod quadratic_residuosity;
 mod rng;
+mod sha;
 mod tables;
 
 pub use tables::*;
