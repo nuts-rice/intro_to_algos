@@ -1,8 +1,12 @@
 use yahoo_finance_api as yahoo;
 
+use std::io::Write;
+
+use chrono::prelude::*;
 use clap::Parser;
 use serde::{Deserialize, Serialize};
 use session_types::*;
+use tokio_test;
 
 //makes a json request with this
 #[derive(Parser, Debug)]
@@ -54,9 +58,21 @@ fn cash_deposit(c: Chan<(), Client>) {
     unimplemented!()
 }
 
+#[cfg(feature = "blocking")]
 fn view_stock(c: Chan<(), Client>) {
-    let idx = Args::parse();
-    todo!()
+    let idx = "Apple";
+    let provider = yahoo::YahooConnector::new();
+    let response = provider.get_latest_quotes(idx, "1d").unwrap();
+    let quote = match response.last_quote() {
+        Ok(quote) => {
+            //maybe do some parsing here
+            println!("{}", quote.close);
+        }
+        Err(err) => {
+            println!("{:?}", err);
+        }
+    };
+
     //    let c = match c.send()
 }
 
