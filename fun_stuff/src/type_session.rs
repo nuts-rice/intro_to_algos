@@ -26,7 +26,7 @@ type stockServer = Choose<Rec<stockInner>, Eps>;
 type stockInner = Offer<CashDeposit, Offer<ViewStock, Offer<CashBalance, Eps>>>;
 
 type CashDeposit = Recv<u64, Send<u64, Var<Z>>>;
-type ViewStock = Recv<String, Send<StockInfo, Var<Z>>>;
+pub type ViewStock = Recv<String, Send<StockInfo, Var<Z>>>;
 type CashBalance = Send<u64, Var<Z>>;
 
 type Client = <stockServer as HasDual>::Dual;
@@ -59,7 +59,7 @@ fn cash_deposit(c: Chan<(), Client>) {
 }
 
 #[cfg(feature = "blocking")]
-fn view_stock(c: Chan<(), Client>) {
+pub fn view_stock(c: Chan<(), Client>) {
     let idx = "Apple";
     let provider = yahoo::YahooConnector::new();
     let response = provider.get_latest_quotes(idx, "1d").unwrap();

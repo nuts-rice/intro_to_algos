@@ -47,4 +47,9 @@ mod tests {
         assert_eq!(chinese_remainder(&[3, 5, 7], &[2, 3, 1]), Some(5));
         assert_eq!(chinese_remainder(&[1, 4, 6], &[3, 5, 7]), Some(34));
     }
+
+    #[test]
+    fn eea_tabular_test() {
+        assert_eq!(mod_inv(397, 2357), Some(1603));
+    }
 }
