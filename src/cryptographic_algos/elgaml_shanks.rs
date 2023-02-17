@@ -15,8 +15,8 @@ mod diffie_hellman {
 
     fn diffie_hellman(p: BigUint, g: u32) -> Result<SharedSecretPair, Error> {
         let mut rng = thread_rng();
-        let k_priv_a: BigUint = rng.gen_biguint(1000) % p.clone();
-        let k_priv_b: BigUint = rng.gen_biguint(1000) % p.clone();
+        let k_priv_a: BigUint = rng.gen_biguint(1000) % &p;
+        let k_priv_b: BigUint = rng.gen_biguint(1000) % &p;
         let k_pub_a = BigUint::from(g).modpow(&k_priv_a, &p);
         let k_pub_b = BigUint::from(g).modpow(&k_priv_b, &p);
         let k_session_1 = k_pub_b.modpow(&k_priv_a, &p);
@@ -27,6 +27,13 @@ mod diffie_hellman {
             b: k_session_2,
         };
         Ok(shared_pair)
+    }
+}
+
+mod elgaml {
+    use super::*;
+    fn elgaml() {
+        unimplemented!()
     }
 }
 

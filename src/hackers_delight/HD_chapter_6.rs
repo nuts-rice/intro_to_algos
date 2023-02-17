@@ -51,7 +51,7 @@ pub fn le_9_byte(x: i64) -> i64 {
 
 //left most uppercase letter
 pub fn uppercase_byte(x: i64) -> i64 {
-    let mut d = ((x as i64 | 0x80808080) - 0x41414141) as i64;
+    let mut d = (x | 0x80808080) - 0x41414141;
     d = !((x | 0x7F7F7F7F) ^ d);
     let mut y = (d & 0x7F7F7F7F) + 0x66666666;
     y |= d;

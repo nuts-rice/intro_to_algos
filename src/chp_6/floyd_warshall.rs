@@ -21,7 +21,7 @@ pub fn floyd_warshall<V: Ord + Copy, E: Ord + Copy + Add<Output = E>>(
             });
         }
     }
-    let keys = map.iter().map(|(k, _)| *k).collect::<Vec<_>>();
+    let keys = map.keys().copied().collect::<Vec<_>>();
     for &k in &keys {
         for &i in &keys {
             if map[&i].get(&k).is_none() {

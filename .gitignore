@@ -1,6 +1,7 @@
 /config.toml
 /Makefile
 config.mk
+Cargo.lock
 config.stamp
 no_llvm_build
 

@@ -73,8 +73,8 @@ fn is_residue(x: u32, modulus: u32) -> bool {
 }
 
 pub fn cipolla(a: u32, p: u32) -> Option<(u32, u32)> {
-    let a = a as u32;
-    let p = p as u32;
+    let a = a;
+    let p = p;
     if a == 0 {
         return Some((0, 0));
     }
@@ -91,8 +91,8 @@ pub fn cipolla(a: u32, p: u32) -> Option<(u32, u32)> {
     let field = Rc::new(CustomFiniteField::new(p, (p + r * r - a) % p));
     let comp = CustomComplexNumber::new(r, 1, field);
     let power = (p + 1) >> 1;
-    let x0 = CustomComplexNumber::fast_power(comp, power).real as u32;
-    let x1 = p as u32 - x0 as u32;
+    let x0 = CustomComplexNumber::fast_power(comp, power).real;
+    let x1 = p - x0;
     if x0 < x1 {
         Some((x0, x1))
     } else {
