@@ -30,8 +30,26 @@ mod diffie_hellman {
     }
 }
 
+mod cryptopals_5_34 {
+
+    use session_types::*;
+    type key = Box<Vec<u8>>;
+    type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Sync + 'static>>;
+    type ProtocolSend = Recv<Box<[u8]>, Send<Result<()>, Var<Z>>>;
+    type ProtocolRecieve = Send<Box<[u8]>, Choose<Var<Z>, Var<Z>>>;
+    //server will recieve message, key and send (c_1, c_2) as aes
+    type ProtocolServer = Recv<key, Choose<Rec<ProtocolInner>, Eps>>;
+    type ProtocolInner = Offer<ProtocolSend, Offer<ProtocolRecieve, Eps>>;
+    //what we assume alice and bob to be...unless there's an advesary!
+    type ProtocolClient = <ProtocolServer as HasDual>::Dual;
+
+    fn protocol_handshake(_c: Chan<(), ProtocolServer>) {
+        unimplemented!()
+    }
+}
+
 mod elgaml {
-    use super::*;
+
     fn elgaml() {
         unimplemented!()
     }

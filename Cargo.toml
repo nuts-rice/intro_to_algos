@@ -28,6 +28,11 @@ cgmath = "0.18.0"
 num = "0.4.0"
 num-bigint-dig = { version = "0.8.2", features = ["rand"] }
 anyhow = "1.0.69"
+aes = "0.8.2"
+session_types = "0.3.1"
+digest = "0.10.6"
+result = "1.0.0"
+sha-1 = "0.10.1"
 
 [dev-dependencies]
 assert_cmd = "0.11"
