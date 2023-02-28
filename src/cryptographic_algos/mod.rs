@@ -4,6 +4,7 @@ mod des;
 mod elgaml_shanks;
 mod md5;
 mod merkle_tree;
+mod montgomery_multiplication;
 mod pollards;
 mod quadratic_residuosity;
 mod rng;

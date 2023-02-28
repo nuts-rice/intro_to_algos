@@ -19,13 +19,26 @@ pub fn extended_euclid(a: i32, b: i32) -> (i32, i32, i32) {
     (old_r, old_s, old_t)
 }
 
-fn mod_inv(x: i32, n: i32) -> Option<i32> {
+pub fn mod_inv(x: i32, n: i32) -> Option<i32> {
     let (g, x, _) = extended_euclid(x, n);
     if g == 1 {
         Some((x % n + n) % n)
     } else {
         None
     }
+}
+
+pub fn mod_pow(mut x: i64, mut e: u32, prime: i64) -> i64 {
+    let mut tmp = 1;
+    while e > 0 {
+        if e % 2 == 0 {
+        } else {
+            tmp = (tmp * x) % prime;
+        }
+        x = (x * x) % prime;
+        e = e >> 1;
+    }
+    tmp
 }
 
 pub fn chinese_remainder(residues: &[i32], modulli: &[i32]) -> Option<i32> {

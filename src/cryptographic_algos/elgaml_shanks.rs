@@ -8,12 +8,12 @@ use rand::prelude::*;
 mod diffie_hellman {
     use super::*;
     #[derive(Clone, Debug, Default, PartialEq)]
-    struct SharedSecretPair {
+    pub struct SharedSecretPair {
         a: BigUint,
         b: BigUint,
     }
 
-    fn diffie_hellman(p: BigUint, g: u32) -> Result<SharedSecretPair, Error> {
+    pub fn diffie_hellman(p: BigUint, g: u32) -> Result<SharedSecretPair, Error> {
         let mut rng = thread_rng();
         let k_priv_a: BigUint = rng.gen_biguint(1000) % &p;
         let k_priv_b: BigUint = rng.gen_biguint(1000) % &p;
@@ -31,7 +31,7 @@ mod diffie_hellman {
 }
 
 mod cryptopals_5_34 {
-
+    use super::diffie_hellman::*;
     use session_types::*;
     type key = Box<Vec<u8>>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Sync + 'static>>;
@@ -43,7 +43,36 @@ mod cryptopals_5_34 {
     //what we assume alice and bob to be...unless there's an advesary!
     type ProtocolClient = <ProtocolServer as HasDual>::Dual;
 
-    fn protocol_handshake(_c: Chan<(), ProtocolServer>) {
+    fn protocol_handshake(c: Chan<(), ProtocolServer>) {
+        let mut c = {
+            let (c, key) = c.recv();
+            c.sel1().enter()
+        };
+        loop {
+            c = offer! {
+                            c,
+                            Send_encr => {
+                                let (c, params) = c.recv();
+            //                    let dh = diffie_hellman(p, g);
+            //                    c.send(dh).zero()
+                            todo!()
+                            },
+                            Recv_encr => {
+                                todo!()
+                            },
+                            Quit => {
+                                c.close();
+                                break
+                            }
+                        }
+        }
+    }
+
+    fn send_encr(c: Chan<(), ProtocolClient>) {
+        unimplemented!()
+    }
+
+    fn recv_encr(c: Chan<(), ProtocolClient>) {
         unimplemented!()
     }
 }
@@ -57,9 +86,10 @@ mod elgaml {
 
 #[cfg(test)]
 mod tests {
-
-    #[test]
-    fn diffie_hellman_test() {
-        unimplemented!()
-    }
+    use super::*;
+    /*    #[test]
+        fn diffie_hellman_test() {
+            let executed = diffie_hellman::diffie_hellman(BigUint::try_from(19), 2);
+        }
+    */
 }

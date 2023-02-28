@@ -33,6 +33,7 @@ session_types = "0.3.1"
 digest = "0.10.6"
 result = "1.0.0"
 sha-1 = "0.10.1"
+ff = { version = "0.13.0", features = ["bits", "derive", "derive_bits"] }
 
 [dev-dependencies]
 assert_cmd = "0.11"
