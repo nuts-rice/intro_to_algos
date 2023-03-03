@@ -1,5 +1,6 @@
 mod baby_step_giant_step;
 mod chinese_remainder;
+mod cryptopals;
 mod des;
 mod elgaml_shanks;
 mod md5;

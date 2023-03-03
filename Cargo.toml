@@ -34,6 +34,11 @@ digest = "0.10.6"
 result = "1.0.0"
 sha-1 = "0.10.1"
 ff = { version = "0.13.0", features = ["bits", "derive", "derive_bits"] }
+crypto-bigint = { version = "0.5.0", features = ["alloc"] }
+num-bigint = { version = "0.4.3", features = ["rand"] }
+bignum = "0.0.0"
+openssl = "0.10.45"
+rsa = "0.8.2"
 
 [dev-dependencies]
 assert_cmd = "0.11"

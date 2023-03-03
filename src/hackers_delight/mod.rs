@@ -1,3 +1,4 @@
+pub mod HD_chapter_10;
 pub mod HD_chapter_11;
 pub mod HD_chapter_2;
 pub mod HD_chapter_5;
