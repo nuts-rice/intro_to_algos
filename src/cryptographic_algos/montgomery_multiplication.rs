@@ -8,6 +8,9 @@ Use an interger r >= m where gcd(r,m)= 1 and r is 2^m (make it easier for binary
 use super::*;
 use ff::*;
 //a value x defined as x * r mod n
+
+pub use core::ops::Mul;
+
 #[derive(Copy, Clone, Debug)]
 pub struct Value(u64);
 
@@ -43,3 +46,19 @@ impl MongtgomerySpace {
         Value((if t >= (self.m) { t - (self.m) } else { t }))
     }
 }
+impl Mul<MongtgomerySpace> for MongtgomerySpace {
+    type Output = Value;
+
+    fn mul(self, _y: MongtgomerySpace) -> Value {
+        unimplemented!()
+    }
+}
+
+/*
+impl Mul<Value> for Value {
+    type Output = Value;
+        fn mul(&self, x: u64, y: u64) -> Value {
+            (MongtgomerySpace::redc(x) * y)
+        }
+}
+*/

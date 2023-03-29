@@ -1,5 +1,5 @@
 //relayed concepts: Modulus and floor division, inverse operations (negate)
-//Look into: shift right sighned instruction
+//Look into: shift right sighned instruction, Barret reduction
 
 #[derive(PartialEq, Debug)]
 pub struct ms {
@@ -49,10 +49,10 @@ mod test {
     use super::*;
     #[test]
     fn hamming_test() {
-        let mag = ms {
-            magic: 2147483649,
-            shift: -1,
+        let right = ms {
+            magic: 3074457345618258603,
+            shift: 0,
         };
-        assert_eq!(divide_magic(1), mag);
+        assert_eq!(divide_magic(6), right);
     }
 }
