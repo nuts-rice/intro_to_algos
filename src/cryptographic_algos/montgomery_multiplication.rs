@@ -8,11 +8,10 @@ Use an interger r >= m where gcd(r,m)= 1 and r is 2^m (make it easier for binary
 use super::*;
 use ff::*;
 //a value x defined as x * r mod n
-
-pub use core::ops::Mul;
+use std::ops::{Add, Mul};
 
 #[derive(Copy, Clone, Debug)]
-pub struct Value(u64);
+pub struct Value(pub u64);
 
 pub struct MongtgomerySpace {
     pub m: u64,
@@ -26,10 +25,8 @@ impl MongtgomerySpace {
         //2^64, powers of two for binary decomposition
         let r = 1u64 << 64;
         let tmp = chinese_remainder::mod_inv(r as i32, prime as i32).unwrap();
-        assert!(tmp < 0);
         let r_inv = tmp as u64;
         let tmp = chinese_remainder::mod_inv(prime as i32, r as i32).unwrap();
-        assert!(tmp < 0);
         let m_mark = (r as i32 - tmp) as u64;
         let r_cube = chinese_remainder::mod_pow(r as i64 % prime as i64, 3u32, prime as i64) as u64;
         MongtgomerySpace {
@@ -41,18 +38,37 @@ impl MongtgomerySpace {
     }
     //reduce number of multiplications needed to find x^m
     fn redc(&self, a: u64) -> Value {
-        let p: u64 = (a).wrapping_mul(self.m_mark);
-        let t: u64 = a + p * self.m >> 64;
-        Value((if t >= (self.m) { t - (self.m) } else { t }))
+        unsafe {
+            let p: u64 = (a).wrapping_mul(self.m_mark);
+            let t: u64 = (a as u128 + (p * self.m) as u128 >> 64) as u64;
+            Value((if t >= (self.m) { t - (self.m) } else { t }))
+        }
     }
 }
-impl Mul<MongtgomerySpace> for MongtgomerySpace {
+impl Mul<Value> for MongtgomerySpace {
     type Output = Value;
 
-    fn mul(self, _y: MongtgomerySpace) -> Value {
-        unimplemented!()
+    fn mul(self, b: Self::Output) -> Self::Output {
+        Value(self.redc(self.r_cube).0.wrapping_mul(b.0))
     }
 }
+
+impl Add<Value> for MongtgomerySpace {
+    type Output = Value;
+
+    fn add(self, b: Self::Output) -> Self::Output {
+        let sum = self.r_cube + b.0;
+        if sum > self.m {
+            Value((sum - self.m))
+        } else {
+            Value(sum)
+        }
+    }
+}
+
+//fn modulus(&self) -> u64 {
+//        self.n as u64
+//    }
 
 /*
 impl Mul<Value> for Value {
