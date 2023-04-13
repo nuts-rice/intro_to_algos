@@ -39,6 +39,7 @@ num-bigint = { version = "0.4.3", features = ["rand"] }
 bignum = "0.0.0"
 openssl = "0.10.45"
 rsa = "0.8.2"
+chrono = "0.4.24"
 
 [dev-dependencies]
 assert_cmd = "0.11"

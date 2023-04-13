@@ -37,9 +37,14 @@ mod challenge_5_34 {
 mod challenge_6_41 {
 
     use super::*;
+    use chrono::prelude::*;
     use openssl::bn::MsbOption;
     use openssl::{bn, rsa};
+    use std::ops::{Add, Div, Mul};
     const SIZE: usize = 512;
+    //TODO: figure out the derive trait annotation here
+    //    #[derive(Clone, Debug)]
+    pub struct Value(pub Box<bn::BigNum>);
     struct Oracle {
         rsa: rsa::Rsa<bn::BigNum>,
         clear: bn::BigNum,
@@ -53,6 +58,43 @@ mod challenge_6_41 {
             let clear = bn.rand(SIZE as i32 - 1, MsbOption::MAYBE_ZERO, true);
             todo!()
         }
+    }
+
+    impl Add<Value> for Oracle {
+        type Output = Value;
+
+        fn add(self, b: Self::Output) -> Self::Output {
+            todo!()
+        }
+    }
+
+    impl Mul<Value> for Oracle {
+        type Output = Value;
+
+        fn mul(self, b: Self::Output) -> Self::Output {
+            todo!()
+        }
+    }
+
+    impl Div<Value> for Oracle {
+        type Output = Value;
+
+        //Blah blah blah modulo check
+        fn div(self, b: Self::Output) -> Self::Output {
+            todo!()
+        }
+    }
+}
+
+mod attack {
+    macro_rules! evil {
+        ($var:ident) => {
+            if cfg!(feature = "attack") {
+                todo!()
+            } else {
+                $var
+            }
+        };
     }
 }
 
