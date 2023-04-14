@@ -8,11 +8,12 @@ Use an interger r >= m where gcd(r,m)= 1 and r is 2^m (make it easier for binary
 use super::*;
 use ff::*;
 //a value x defined as x * r mod n
-use std::ops::{Add, Mul};
+use std::ops::{Add, Mul, Sub};
 
 #[derive(Copy, Clone, Debug)]
-pub struct Value(pub u64);
+pub struct Value<'a>(pub &'a MongtgomerySpace);
 
+#[derive(Copy, Clone, Debug)]
 pub struct MongtgomerySpace {
     pub m: u64,
     pub m_mark: u64, //r * r^-1 + n * n' = 1 (computed by EEA)
@@ -41,30 +42,42 @@ impl MongtgomerySpace {
         unsafe {
             let p: u64 = (a).wrapping_mul(self.m_mark);
             let t: u64 = (a as u128 + (p * self.m) as u128 >> 64) as u64;
-            Value((if t >= (self.m) { t - (self.m) } else { t }))
+            todo!()
+        //    Value((if t >= (self.m) { t - (self.m) } else { t }))
         }
     }
 }
-impl Mul<Value> for MongtgomerySpace {
-    type Output = Value;
+//TODO: figure this out lol
 
-    fn mul(self, b: Self::Output) -> Self::Output {
-        Value(self.redc(self.r_cube).0.wrapping_mul(b.0))
-    }
-}
+// impl Mul for Value<'MongtgomerySpace> {
+//     type Output<'a> = Value<'a>;
 
-impl Add<Value> for MongtgomerySpace {
-    type Output = Value;
+//     fn mul(self, b: Self::Output) -> Self::Output {
+//         Value(self.0.redc(self.0.r_cube).0.wrapping_mul(b.0))
+//     }
+// }
 
-    fn add(self, b: Self::Output) -> Self::Output {
-        let sum = self.r_cube + b.0;
-        if sum > self.m {
-            Value((sum - self.m))
-        } else {
-            Value(sum)
-        }
-    }
-}
+// impl Add for Value<'MongtgomerySpace> {
+//     type Output<'a> = Value<'a>;
+
+//     fn add(self, b: Self::Output) -> Self::Output {
+//         let sum = self.0.r_cube + b.0;
+//         if sum > self.0.m {
+//             Value((sum - self.0.m))
+//         } else {
+//             Value(sum)
+//         }
+//     }
+// }
+
+// impl Sub for Value<'MongtgomerySpace> {
+//     type Output = Value;
+
+
+//     fn sub(self, b: Self::Output) -> Self::Output {
+//         todo!()
+//     }
+// }
 
 //fn modulus(&self) -> u64 {
 //        self.n as u64

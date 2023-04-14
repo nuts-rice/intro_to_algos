@@ -34,6 +34,23 @@ mod challenge_5_34 {
         }
     }
 }
+mod challenge_5_35 {
+    use result::ResultOptionExt;
+    use std::fmt::Debug;
+
+    use super::*;
+    type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync + 'static>>;
+
+    pub trait DHClient: Clone + Default + Debug {
+        fn send(&mut self, message: &[u8]) -> Result<()>;
+        fn recieve(&mut self) -> Result<Option<Vec<u8>>>;
+    }
+    pub trait DHClientNew: Clone + Default + Debug {
+        fn send(&mut self, message: &[u8]) -> Result<()>;
+        fn recieve(&mut self) -> Result<Option<Vec<u8>>>;
+    }
+}
+
 mod challenge_6_41 {
 
     use super::*;
@@ -95,6 +112,26 @@ mod attack {
                 $var
             }
         };
+    }
+}
+
+mod mitm_34_attack {
+    use super::*;
+    use result::ResultOptionExt;
+    type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync + 'static>>;
+
+    macro_rules! evil {
+        ($var:ident) => {
+            if cfg!(feature = "attack") {
+                todo!()
+            } else {
+                $var
+            }
+        };
+    }
+
+    pub trait MitmHandshake<T: challenge_5_35::DHClient> {
+        fn handshake(client_stream: &mut T, server_stream: &mut T) -> Result<Vec<u8>>;
     }
 }
 
