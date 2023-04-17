@@ -35,12 +35,16 @@ mod challenge_5_34 {
     }
 }
 mod challenge_5_35 {
+    use openssl::hash::{hash, MessageDigest};
+    use openssl::symm::{decrypt, encrypt, Cipher};
+    use rand::Rng;
     use result::ResultOptionExt;
     use std::fmt::Debug;
 
     use super::*;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync + 'static>>;
 
+    //session based handshake member fns
     pub trait DHClient: Clone + Default + Debug {
         fn send(&mut self, message: &[u8]) -> Result<()>;
         fn recieve(&mut self) -> Result<Option<Vec<u8>>>;
@@ -48,6 +52,27 @@ mod challenge_5_35 {
     pub trait DHClientNew: Clone + Default + Debug {
         fn send(&mut self, message: &[u8]) -> Result<()>;
         fn recieve(&mut self) -> Result<Option<Vec<u8>>>;
+    }
+
+    pub trait DHClientEncrypt: DHClient {
+        fn check_aes(&mut self, key: &[u8]) -> Result<Option<Vec<u8>>> {
+            self.recieve()?
+                .as_ref()
+                .map(|message| self.decrypt(message, key))
+                .invert()
+        }
+
+        fn decrypt(&mut self, message: &[u8], key: &[u8]) -> Result<Vec<u8>> {
+            let msg = message.to_vec();
+            let aes_cbc = Cipher::aes_128_cbc();
+            let iv = vec![0u32; aes_cbc.iv_len().unwrap()];
+            //TODO: make this not suck
+            //            let mut rng = rand::thread_rng();
+            //            rng.fill(&mut iv);
+            let (iv, ciphertxt) = message.split_at(aes_cbc.iv_len().unwrap());
+            let result = decrypt(aes_cbc, key, Some(iv), ciphertxt)?;
+            Ok(result)
+        }
     }
 }
 
