@@ -55,7 +55,7 @@ mod challenge_5_35 {
     }
 
     pub trait DHClientEncrypt: DHClient {
-        fn check_aes(&mut self, key: &[u8]) -> Result<Option<Vec<u8>>> {
+        fn recieve_aes(&mut self, key: &[u8]) -> Result<Option<Vec<u8>>> {
             self.recieve()?
                 .as_ref()
                 .map(|message| self.decrypt(message, key))
@@ -63,7 +63,6 @@ mod challenge_5_35 {
         }
 
         fn decrypt(&mut self, message: &[u8], key: &[u8]) -> Result<Vec<u8>> {
-            let msg = message.to_vec();
             let aes_cbc = Cipher::aes_128_cbc();
             let iv = vec![0u32; aes_cbc.iv_len().unwrap()];
             //TODO: make this not suck
@@ -72,6 +71,13 @@ mod challenge_5_35 {
             let (iv, ciphertxt) = message.split_at(aes_cbc.iv_len().unwrap());
             let result = decrypt(aes_cbc, key, Some(iv), ciphertxt)?;
             Ok(result)
+        }
+        fn encrypt(&mut self, message: &[u8], key: &[u8]) -> Result<Vec<u8>> {
+            let aes_cbc = Cipher::aes_128_cbc();
+            let mut iv = vec![0u8; aes_cbc.iv_len().unwrap()];
+            let mut ciphertxt = encrypt(aes_cbc, key, Some(&iv), message)?;
+            iv.extend(ciphertxt);
+            Ok(iv)
         }
     }
 }
