@@ -149,11 +149,16 @@ mod attack {
 mod mitm_34_attack {
     use super::*;
     use result::ResultOptionExt;
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error + Send + Sync + 'static>>;
+    use session_types::*;
+    use std::thread;
+    type Result<T> =
+        std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
+    type Server = Recv<Result<u8>, Send<Result<u8>, Eps>>;
+    type Client = <Server as HasDual>::Dual;
 
     macro_rules! evil {
         ($var:ident) => {
-            if cfg!(feature = "attack") {
+            if cfg!(feature = "attack_5_34") {
                 todo!()
             } else {
                 $var
@@ -163,6 +168,11 @@ mod mitm_34_attack {
 
     pub trait MitmHandshake<T: challenge_5_35::DHClient> {
         fn handshake(client_stream: &mut T, server_stream: &mut T) -> Result<Vec<u8>>;
+    }
+
+    pub trait MitmClientServer<T: challenge_5_35::DHClient> {
+        //KISS here and not rolling own session based traits
+        type Mitm: MitmHandshake<T>;
     }
 }
 
