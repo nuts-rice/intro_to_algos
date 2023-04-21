@@ -148,12 +148,13 @@ mod attack {
 
 mod mitm_34_attack {
     use super::*;
+    use challenge_5_34::Key;
     use result::ResultOptionExt;
     use session_types::*;
     use std::thread;
     type Result<T> =
         std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
-    type Server = Recv<Result<u8>, Send<Result<u8>, Eps>>;
+    type Server = Recv<Key, Send<Result<u8>, Eps>>;
     type Client = <Server as HasDual>::Dual;
 
     macro_rules! evil {
@@ -167,12 +168,23 @@ mod mitm_34_attack {
     }
 
     pub trait MitmHandshake<T: challenge_5_35::DHClient> {
-        fn handshake(client_stream: &mut T, server_stream: &mut T) -> Result<Vec<u8>>;
+        fn handshake(c: Chan<(), Server>) -> Result<Vec<u8>>;
     }
 
     pub trait MitmClientServer<T: challenge_5_35::DHClient> {
         //KISS here and not rolling own session based traits
         type Mitm: MitmHandshake<T>;
+    }
+
+    type FakePublicKey = Key;
+
+    impl<T: challenge_5_35::DHClient> MitmHandshake<T> for FakePublicKey {
+        fn handshake(c: Chan<(), Server>) -> Result<Vec<u8>> {
+            let mut c = {
+                let (c, FakePublicKey) = c.recv();
+                todo!()
+            };
+        }
     }
 }
 
