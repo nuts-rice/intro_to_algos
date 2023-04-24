@@ -85,53 +85,51 @@ mod challenge_5_35 {
 mod challenge_6_41 {
 
     use super::*;
-    use chrono::prelude::*;
     use openssl::bn::MsbOption;
-    use openssl::{bn, rsa};
-    use std::ops::{Add, Div, Mul};
-    const SIZE: usize = 512;
-    //TODO: figure out the derive trait annotation here
-    //    #[derive(Clone, Debug)]
-    pub struct Value(pub Box<bn::BigNum>);
-    struct Oracle {
-        rsa: rsa::Rsa<bn::BigNum>,
-        clear: bn::BigNum,
-        cipher: bn::BigNum,
+    use openssl::{bn, rsa::Rsa};
+    use std::collections::HashMap;
+    use std::sync::{Arc, Mutex};
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    const INTERVAL: Duration = Duration::from_secs(60 * 60);
+    type Hash = Arc<Mutex<HashMap<String, SystemTime>>>;
+
+    // fn new() -> Self {
+    //     let rsa = rsa::Rsa::generate(SIZE as u32);
+    //     let mut bn = bn::BigNum::new().unwrap();
+    //     let clear = bn.rand(SIZE as i32 - 1, MsbOption::MAYBE_ZERO, true);
+    //     todo!()
+    // }
+
+    fn decrypt_blob(blob: &[u8], rsa: &Rsa<openssl::pkey::Private>) -> Vec<u8> {
+        let mut decrypted_blob = vec![0; rsa.size() as usize];
+        let _ = rsa.private_decrypt(blob, &mut decrypted_blob, openssl::rsa::Padding::PKCS1);
+        decrypted_blob
     }
 
-    impl Oracle {
-        fn new() -> Self {
-            let rsa = rsa::Rsa::generate(SIZE as u32);
-            let mut bn = bn::BigNum::new().unwrap();
-            let clear = bn.rand(SIZE as i32 - 1, MsbOption::MAYBE_ZERO, true);
-            todo!()
-        }
-    }
+    //impl Add<Value> for Oracle {
+    //    type Output = Value;
 
-    impl Add<Value> for Oracle {
-        type Output = Value;
+    //    fn add(self, b: Self::Output) -> Self::Output {
+    //        todo!()
+    //    }
+    //}
 
-        fn add(self, b: Self::Output) -> Self::Output {
-            todo!()
-        }
-    }
+    //impl Mul<Value> for Oracle {
+    //    type Output = Value;
 
-    impl Mul<Value> for Oracle {
-        type Output = Value;
+    //    fn mul(self, b: Self::Output) -> Self::Output {
+    //        todo!()
+    //    }
+    //}
 
-        fn mul(self, b: Self::Output) -> Self::Output {
-            todo!()
-        }
-    }
+    //impl Div<Value> for Oracle {
+    //    type Output = Value;
 
-    impl Div<Value> for Oracle {
-        type Output = Value;
-
-        //Blah blah blah modulo check
-        fn div(self, b: Self::Output) -> Self::Output {
-            todo!()
-        }
-    }
+    //    //Blah blah blah modulo check
+    //    fn div(self, b: Self::Output) -> Self::Output {
+    //        todo!()
+    //    }
+    //}
 }
 
 mod attack {
@@ -146,66 +144,66 @@ mod attack {
     }
 }
 
-mod mitm_34_attack {
-    use super::{challenge_5_34::DH, *};
-    use challenge_5_34::Key;
-    use openssl::{
-        bn::BigNum,
-        dh::{self, Dh},
-        ssl::ErrorCode,
-    };
-    use result::ResultOptionExt;
-    use session_types::*;
-    use std::thread;
-    type Result<T> =
-        std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
-    //TODO: just use openssl for this one
-    type Server<A> = Recv<A, Send<A, Eps>>;
-    type Client = <Server<A> as HasDual>::Dual;
+//mod mitm_34_attack {
+//    use super::{challenge_5_34::DH, *};
+//    use challenge_5_34::Key;
+//    use openssl::{
+//        bn::BigNum,
+//        dh::{self, Dh},
+//        ssl::ErrorCode,
+//    };
+//    use result::ResultOptionExt;
+//    use session_types::*;
+//    use std::thread;
+//    type Result<T> =
+//        std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
+//    //TODO: just use openssl for this one
+//    type Server<A> = Recv<A, Send<A, Eps>>;
+//    type Client = <Server<A> as HasDual>::Dual;
 
-    macro_rules! evil {
-        ($var:ident) => {
-            if cfg!(feature = "attack_5_34") {
-                todo!()
-            } else {
-                $var
-            }
-        };
-    }
+//    macro_rules! evil {
+//        ($var:ident) => {
+//            if cfg!(feature = "attack_5_34") {
+//                todo!()
+//            } else {
+//                $var
+//            }
+//        };
+//    }
 
-    pub trait MitmHandshake<T: challenge_5_35::DHClient> {
-        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>>;
-    }
+//    pub trait MitmHandshake<T: challenge_5_35::DHClient> {
+//        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>>;
+//    }
 
-    pub trait MitmClientServer<T: challenge_5_35::DHClient> {
-        //KISS here and not rolling own session based traits
-        type Mitm: MitmHandshake<T>;
-    }
+//    pub trait MitmClientServer<T: challenge_5_35::DHClient> {
+//        //KISS here and not rolling own session based traits
+//        type Mitm: MitmHandshake<T>;
+//    }
 
-    fn generate<A: std::marker::Send + Copy + 'static>(
-        c: Chan<(), Server<A>>,
-        params: &Vec<A>,
-    ) -> Dh<A> {
-        let dh = DH::new();
-        todo!();
-    }
+//    fn generate<A: std::marker::Send + Copy + 'static>(
+//        c: Chan<(), Server<A>>,
+//        params: &Vec<A>,
+//    ) -> Dh<A> {
+//        let dh = DH::new();
+//        todo!();
+//    }
 
-    #[derive(Debug, Copy, Clone)]
-    struct FakePublicKey(Box<BigNum>); //Q
-    #[derive(Debug, Copy, Clone)]
-    struct Params(BigNum, BigNum); //P, G
+//    #[derive(Debug, Copy, Clone)]
+//    struct FakePublicKey(Box<BigNum>); //Q
+//    #[derive(Debug, Copy, Clone)]
+//    struct Params(BigNum, BigNum); //P, G
 
-    impl<T: challenge_5_35::DHClient, A> MitmHandshake<T> for FakePublicKey {
-        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>> {
-            // let mut c = c.enter();
-            let mut c = {
-                //let params: Params =  c.recv();
+//    impl<T: challenge_5_35::DHClient, A> MitmHandshake<T> for FakePublicKey {
+//        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>> {
+//            // let mut c = c.enter();
+//            let mut c = {
+//                //let params: Params =  c.recv();
 
-                todo!()
-            };
-        }
-    }
-}
+//                todo!()
+//            };
+//        }
+//    }
+//}
 
 #[cfg(test)]
 mod test {
