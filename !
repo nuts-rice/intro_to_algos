@@ -147,20 +147,18 @@ mod attack {
 }
 
 mod mitm_34_attack {
-    use super::{challenge_5_34::DH, *};
+    use super::{*, challenge_5_34::DH};
     use challenge_5_34::Key;
-    use openssl::{
-        bn::BigNum,
-        dh::{self, Dh},
-        ssl::ErrorCode,
-    };
+    use openssl::{dh::{self, Dh}, bn::BigNum, ssl::ErrorCode};
     use result::ResultOptionExt;
     use session_types::*;
     use std::thread;
     type Result<T> =
         std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
     //TODO: just use openssl for this one
-    type Server<A> = Recv<A, Send<A, Eps>>;
+    type Server<A> = Recv<A,
+                    Send<A,
+                    Eps>>;
     type Client = <Server<A> as HasDual>::Dual;
 
     macro_rules! evil {
@@ -174,7 +172,7 @@ mod mitm_34_attack {
     }
 
     pub trait MitmHandshake<T: challenge_5_35::DHClient> {
-        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>>;
+        fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<u8>>;
     }
 
     pub trait MitmClientServer<T: challenge_5_35::DHClient> {
@@ -182,26 +180,25 @@ mod mitm_34_attack {
         type Mitm: MitmHandshake<T>;
     }
 
-    fn generate<A: std::marker::Send + Copy + 'static>(
-        c: Chan<(), Server<A>>,
-        params: &Vec<A>,
-    ) -> Dh<A> {
-        let dh = DH::new();
-        todo!();
+    fn generate<A: std::marker::Send + Copy + 'static>(c: Chan<(), Server<A>>, params: &Vec<A>) -> Dh<A> {
+         let dh = DH::new();
+         todo!();    
     }
 
     #[derive(Debug, Copy, Clone)]
-    struct FakePublicKey(Box<BigNum>); //Q
-    #[derive(Debug, Copy, Clone)]
-    struct Params(BigNum, BigNum); //P, G
+    struct FakePublicKey (Box<BigNum>); //Q
+    #[derive(Debug, Copy, Clone)]                                  
+    struct Params (BigNum, BigNum); //P, G
 
-    impl<T: challenge_5_35::DHClient, A> MitmHandshake<T> for FakePublicKey {
+
+    impl<T: challenge_5_35::DHClient> MitmHandshake<T> for FakePublicKey {
         fn handshake(c: Chan<(), Server<A>>) -> Result<Vec<BigNum>> {
-            // let mut c = c.enter();
+            // let mut c = c.enter();            
             let mut c = {
                 //let params: Params =  c.recv();
 
                 todo!()
+
             };
         }
     }
