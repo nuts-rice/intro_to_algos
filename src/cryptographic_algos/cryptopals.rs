@@ -87,11 +87,15 @@ mod challenge_6_41 {
     use super::*;
     use openssl::bn::MsbOption;
     use openssl::{bn, rsa::Rsa};
+    use session_types::*;
     use std::collections::HashMap;
     use std::sync::{Arc, Mutex};
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     const INTERVAL: Duration = Duration::from_secs(60 * 60);
-    type Hash = Arc<Mutex<HashMap<String, SystemTime>>>;
+    type Hashes = Arc<Mutex<HashMap<String, SystemTime>>>;
+
+    type OracleServer = Recv<Vec<u8>, Send<Vec<u8>, Eps>>;
+    type OracleClient = <OracleServer as HasDual>::Dual;
 
     // fn new() -> Self {
     //     let rsa = rsa::Rsa::generate(SIZE as u32);
@@ -104,6 +108,10 @@ mod challenge_6_41 {
         let mut decrypted_blob = vec![0; rsa.size() as usize];
         let _ = rsa.private_decrypt(blob, &mut decrypted_blob, openssl::rsa::Padding::PKCS1);
         decrypted_blob
+    }
+
+    fn server(c: Chan<(), OracleServer>, rsa: &Rsa<openssl::pkey::Private>, hashes: Hashes) {
+        todo!()
     }
 
     //impl Add<Value> for Oracle {
