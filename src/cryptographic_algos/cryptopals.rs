@@ -85,6 +85,7 @@ mod challenge_5_35 {
 mod challenge_6_41 {
 
     use super::*;
+    use libc::sysconf;
     use openssl::bn::MsbOption;
     use openssl::{bn, rsa::Rsa};
     use session_types::*;
@@ -94,8 +95,8 @@ mod challenge_6_41 {
     const INTERVAL: Duration = Duration::from_secs(60 * 60);
     type Hashes = Arc<Mutex<HashMap<String, SystemTime>>>;
 
-    type OracleServer = Recv<Vec<u8>, Send<Vec<u8>, Eps>>;
-    type OracleClient = <OracleServer as HasDual>::Dual;
+    type OracleServer<A> = Recv<A, Send<A, Eps>>;
+    type OracleClient<A> = <OracleServer<A> as HasDual>::Dual;
 
     // fn new() -> Self {
     //     let rsa = rsa::Rsa::generate(SIZE as u32);
@@ -110,7 +111,33 @@ mod challenge_6_41 {
         decrypted_blob
     }
 
-    fn server(c: Chan<(), OracleServer>, rsa: &Rsa<openssl::pkey::Private>, hashes: Hashes) {
+    fn oracle<A: std::marker::Send + 'static + Sized>(
+        c: Chan<(), OracleServer<A>>,
+        rsa: &Rsa<openssl::pkey::Private>,
+        hashes: Hashes,
+        blob: &Vec<A>,
+    ) {
+        let (c, blob) = c.recv();
+        //TODO: transmute or push this to something good for session type
+        todo!()
+        // let decrypted_blob = decrypt_blob(&blob, &rsa);
+        //         let hash = format!("{:x}", md5::compute(&decrypted_blob));
+        //         let embed = SystemTime::now();
+        //         let mut hashes = hashes.lock().unwrap();
+        //         hashes.insert(hash, embed);
+        //         timeout(&mut hashes);
+
+        // c.send(decrypted_blob).unwrap().close();
+    }
+
+    fn timeout(hashes: &mut HashMap<String, SystemTime>) {
+        let now = SystemTime::now();
+        hashes.retain(|_, &mut timestamp| now.duration_since(timestamp).unwrap() < INTERVAL);
+    }
+
+    fn server<A: std::marker::Send + Sized + 'static>(c: Chan<(), OracleServer<A>>) {
+        let (oracle_chan, blob) = c.recv();
+
         todo!()
     }
 
@@ -140,7 +167,8 @@ mod challenge_6_41 {
     //}
 }
 
-mod attack {
+mod attack_6_41 {
+    use super::*;
     macro_rules! evil {
         ($var:ident) => {
             if cfg!(feature = "attack") {
