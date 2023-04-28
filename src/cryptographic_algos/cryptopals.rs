@@ -94,16 +94,10 @@ mod challenge_6_41 {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     const INTERVAL: Duration = Duration::from_secs(60 * 60);
     type Hashes = Arc<Mutex<HashMap<String, SystemTime>>>;
-
-    type OracleServer<A> = Recv<A, Send<A, Eps>>;
-    type OracleClient<A> = <OracleServer<A> as HasDual>::Dual;
-
-    // fn new() -> Self {
-    //     let rsa = rsa::Rsa::generate(SIZE as u32);
-    //     let mut bn = bn::BigNum::new().unwrap();
-    //     let clear = bn.rand(SIZE as i32 - 1, MsbOption::MAYBE_ZERO, true);
-    //     todo!()
-    // }
+    type Result<T> =
+        std::result::Result<T, Box<dyn std::error::Error + std::marker::Send + Sync + 'static>>;
+    type OracleServer<Result> = Recv<Result, Send<Result, Eps>>;
+    type OracleClient<Result> = <OracleServer<Result> as HasDual>::Dual;
 
     fn decrypt_blob(blob: &[u8], rsa: &Rsa<openssl::pkey::Private>) -> Vec<u8> {
         let mut decrypted_blob = vec![0; rsa.size() as usize];
@@ -111,35 +105,38 @@ mod challenge_6_41 {
         decrypted_blob
     }
 
-    fn oracle<A: std::marker::Send + 'static + Sized>(
+    fn oracle<A>(
         c: Chan<(), OracleServer<A>>,
         rsa: &Rsa<openssl::pkey::Private>,
         hashes: Hashes,
-        blob: &Vec<A>,
-    ) {
-        let (c, blob) = c.recv();
+        blob: &[u8],
+    ) -> Result<Vec<u8>> {
+        // let (c, blob) = c.recv();
         //TODO: transmute or push this to something good for session type
-        todo!()
-        // let decrypted_blob = decrypt_blob(&blob, &rsa);
-        //         let hash = format!("{:x}", md5::compute(&decrypted_blob));
-        //         let embed = SystemTime::now();
-        //         let mut hashes = hashes.lock().unwrap();
-        //         hashes.insert(hash, embed);
-        //         timeout(&mut hashes);
-
+        let decrypted_blob = decrypt_blob(&blob, &rsa);
+        let hash = format!("{:x}", md5::compute(&decrypted_blob));
+        let embed = SystemTime::now();
+        let mut hashes = hashes.lock().unwrap();
+        hashes.insert(hash, embed);
+        check_timeout(&mut hashes);
+        Ok(decrypted_blob)
         // c.send(decrypted_blob).unwrap().close();
     }
 
-    fn timeout(hashes: &mut HashMap<String, SystemTime>) {
+    fn check_timeout(hashes: &mut HashMap<String, SystemTime>) {
         let now = SystemTime::now();
         hashes.retain(|_, &mut timestamp| now.duration_since(timestamp).unwrap() < INTERVAL);
     }
 
     fn server<A: std::marker::Send + Sized + 'static>(c: Chan<(), OracleServer<A>>) {
-        let (oracle_chan, blob) = c.recv();
-
         todo!()
     }
+
+    // impl TryFrom<u8> for T {
+    //     fn try_from(value: u8) -> Self {
+    //      unimplemented!()
+    //     }
+    // }
 
     //impl Add<Value> for Oracle {
     //    type Output = Value;
