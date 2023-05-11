@@ -18,3 +18,11 @@ pub trait Backtracking {
     fn fill(&self, items: Vec<&Item>) -> u64;
     fn fill_r(&self, remaining: &[&Item], current_weight: usize) -> i64;
 }
+
+impl Backtracking for Knapsack {
+    fn fill(&self, items: Vec<&Item>) -> u64 {}
+
+    fn fill_r(&self, remaining: &[&Item], current_weight: usize) -> i64 {
+        let w = current_weight;
+    }
+}
