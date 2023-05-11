@@ -2,7 +2,7 @@ pub mod bellman_ford;
 pub mod dijkstra;
 pub mod disjoint_set_union;
 pub mod floyd_warshall;
-mod graph_isomorphisms;
+//mod graph_isomorphisms;
 
 pub use bellman_ford::bellman_ford;
 pub use dijkstra::dijkstra;
