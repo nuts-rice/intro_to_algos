@@ -13,7 +13,7 @@ pub mod chp_4;
 pub mod chp_6;
 pub mod cryptographic_algos;
 pub mod hackers_delight;
-
+pub mod fun_stuff; 
 pub fn random_u64() -> u64 {
     let mut result: u64 = 0;
     let mut buffer: [u8; 8] = [0; 8];
