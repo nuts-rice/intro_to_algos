@@ -7,6 +7,7 @@ extern crate rand_isaac;
 
 use rand::prelude::*;
 
+pub mod backtracking;
 pub mod chp_2;
 pub mod chp_3;
 pub mod chp_4;
