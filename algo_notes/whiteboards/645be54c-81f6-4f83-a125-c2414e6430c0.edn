@@ -1,5 +1,5 @@
 {:blocks (
-{:block/created-at 1683744079915
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -28,8 +28,8 @@
 :nonce 1664366266228
 :italic false
 :text "Quick intro to your toolbox"}}
-:block/updated-at 1683744079915} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -57,8 +57,8 @@
 :nonce 1667212477690
 :italic false
 :text "Whiteboards!"}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -75,8 +75,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501858
 :clipping 0}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -93,8 +93,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502330
 :clipping 0}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -123,8 +123,8 @@
 :nonce 1664366270387
 :italic false
 :text "Erase anything"}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -157,8 +157,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664464964227
 :italic false}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -192,8 +192,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366317903
 :italic false}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -226,8 +226,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664464964356
 :italic false}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -244,8 +244,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502922
 :clipping 0}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079916
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -274,8 +274,8 @@
 :nonce 1664464807740
 :italic false
 :text "Rectangle, Circle, Triangle"}}
-:block/updated-at 1683744079916} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -304,8 +304,8 @@
 :nonce 1664366299578
 :italic false
 :text "Draw freeform"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -334,8 +334,8 @@
 :nonce 1664366266186
 :italic false
 :text "Outliner"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049137
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -352,8 +352,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501744
 :clipping 0}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049137} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -387,8 +387,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366266552
 :italic false}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -417,8 +417,8 @@
 :nonce 1664366266057
 :italic false
 :text "The Benefits"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -447,8 +447,8 @@
 :nonce 1664366345770
 :italic false
 :text "Write"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -477,8 +477,8 @@
 :nonce 1664465570902
 :italic false
 :text "Double Click on the Canvas"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -507,8 +507,8 @@
 :nonce 1664366300081
 :italic false
 :text "Create Logseq Portals"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -538,8 +538,8 @@
 :nonce 1664366319853
 :italic false
 :text "Connect anything on the canvas"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -568,8 +568,8 @@
 :nonce 1664464808159
 :italic false
 :text "Blocks or Pages"}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079917
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -599,8 +599,8 @@
 :nonce 1664366268235
 :italic false
 :text "Paste different media types to stimulate your thoughts."}}
-:block/updated-at 1683744079917} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -620,8 +620,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664462167124
 :isComplete true}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -638,8 +638,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501898
 :clipping 0}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -656,8 +656,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501772
 :clipping 0}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -686,8 +686,8 @@
 :nonce 1664465570882
 :italic false
 :text "Double Click on the Canvas"}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -712,8 +712,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366267444
 :italic false}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -742,8 +742,8 @@
 :nonce 1664366266559
 :italic false
 :text "Move around the canvas"}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -778,8 +778,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664466271253
 :italic false}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -794,8 +794,8 @@
 :point [7730.246158129262 321.5301625399185]
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664531425980}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -812,8 +812,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501879
 :clipping 0}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049138
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -847,8 +847,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664466305565
 :italic false}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079918
+:block/updated-at 1684173049138} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -865,8 +865,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501870
 :clipping 0}}
-:block/updated-at 1683744079918} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -900,8 +900,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366317757
 :italic false}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -931,8 +931,8 @@
 :nonce 1664366266016
 :italic false
 :text "Experience the benefits of an outliner on an infinite canvas."}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -962,8 +962,8 @@
 :nonce 1664366321386
 :italic false
 :text "Website Embeds"}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -988,8 +988,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366266054
 :italic false}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1018,8 +1018,8 @@
 :nonce 1664366299851
 :italic false
 :text "Select anything"}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1036,8 +1036,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502262
 :clipping 0}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079919
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1054,8 +1054,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501936
 :clipping 0}}
-:block/updated-at 1683744079919} 
-{:block/created-at 1683744079920
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1084,8 +1084,8 @@
 :nonce 1664366266559
 :italic false
 :text "Highlight anything on the canvas"}}
-:block/updated-at 1683744079920} 
-{:block/created-at 1683744079920
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1120,8 +1120,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664466317953
 :italic false}}
-:block/updated-at 1683744079920} 
-{:block/created-at 1683744079920
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1156,8 +1156,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664465608656
 :italic false}}
-:block/updated-at 1683744079920} 
-{:block/created-at 1683744079920
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1190,8 +1190,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664464964097
 :italic false}}
-:block/updated-at 1683744079920} 
-{:block/created-at 1683744079920
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1216,8 +1216,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366266337
 :italic false}}
-:block/updated-at 1683744079920} 
-{:block/created-at 1683744079921
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1234,8 +1234,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501790
 :clipping 0}}
-:block/updated-at 1683744079921} 
-{:block/created-at 1683744079921
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1264,8 +1264,8 @@
 :nonce 1664366266118
 :italic false
 :text "Welcome to"}}
-:block/updated-at 1683744079921} 
-{:block/created-at 1683744079921
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049139
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1294,8 +1294,8 @@
 :nonce 1664366266997
 :italic false
 :text "Switch between focus & outliner mode"}}
-:block/updated-at 1683744079921} 
-{:block/created-at 1683744079921
+:block/updated-at 1684173049139} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1312,8 +1312,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502231
 :clipping 0}}
-:block/updated-at 1683744079921} 
-{:block/created-at 1683744079921
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1343,8 +1343,8 @@
 :nonce 1664366321146
 :italic false
 :text "Images & Videos"}}
-:block/updated-at 1683744079921} 
-{:block/created-at 1683744079922
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1369,8 +1369,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366265814
 :italic false}}
-:block/updated-at 1683744079922} 
-{:block/created-at 1683744079922
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1400,8 +1400,8 @@
 :nonce 1664366267231
 :italic false
 :text "Put thoughts from your knowledge base (your current graph)\nas well as new ones next to each other on a spatial canvas\ntogether with shapes, drawings, website embeds and connectors."}}
-:block/updated-at 1683744079922} 
-{:block/created-at 1683744079922
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1418,8 +1418,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501945
 :clipping 0}}
-:block/updated-at 1683744079922} 
-{:block/created-at 1683744079923
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1453,8 +1453,8 @@
 :parentId "637239f2-9680-4c82-802c-8858d9835c80"
 :nonce 1668430343546
 :italic false}}
-:block/updated-at 1683744079923} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1484,8 +1484,8 @@
 :nonce 1664366266969
 :italic false
 :text "Break out of the linearity of pages and enjoy the\nfreedom of an infinite canvas."}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1510,8 +1510,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366266231
 :italic false}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1546,8 +1546,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664465986946
 :italic false}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1576,8 +1576,8 @@
 :nonce 1664366266514
 :italic false
 :text "Get started adding blocks"}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1594,8 +1594,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501684
 :clipping 0}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1612,8 +1612,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502035
 :clipping 0}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1630,8 +1630,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502124
 :clipping 0}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1661,8 +1661,8 @@
 :nonce 1664366321229
 :italic false
 :text "YouTube"}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1698,8 +1698,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664461652607
 :italic false}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1728,8 +1728,8 @@
 :nonce 1664366315492
 :italic false
 :text "Draw shapes"}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079924
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1758,8 +1758,8 @@
 :nonce 1664366268024
 :italic false
 :text "Add media to the canvas"}}
-:block/updated-at 1683744079924} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049140
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1789,8 +1789,8 @@
 :nonce 1664366266517
 :italic false
 :text "If you are a visual thinker this helps you to compose, remix,\nannotate and relate thoughts in a new way."}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049140} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1825,8 +1825,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664529447883
 :italic false}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1859,8 +1859,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664464890353
 :italic false}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1889,8 +1889,8 @@
 :nonce 1664366266365
 :italic false
 :text "Canvas"}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1925,8 +1925,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664466297482
 :italic false}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1955,8 +1955,8 @@
 :nonce 1664366266665
 :italic false
 :text "Try it out right here:"}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1973,8 +1973,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215502272
 :clipping 0}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -1991,8 +1991,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501864
 :clipping 0}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2025,8 +2025,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664464964296
 :italic false}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2059,8 +2059,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664466305828
 :italic false}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079925
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2090,8 +2090,8 @@
 :nonce 1664366267033
 :italic false
 :text "Toggle blocks and pages on the canvas between a compact focus\nview or the expanded outliner view."}}
-:block/updated-at 1683744079925} 
-{:block/created-at 1683744079926
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2108,8 +2108,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1667215501740
 :clipping 0}}
-:block/updated-at 1683744079926} 
-{:block/created-at 1683744079926
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2134,8 +2134,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366266162
 :italic false}}
-:block/updated-at 1683744079926} 
-{:block/created-at 1683744079926
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2169,8 +2169,8 @@
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664366317654
 :italic false}}
-:block/updated-at 1683744079926} 
-{:block/created-at 1683744079926
+:block/updated-at 1684173049141} 
+{:block/created-at 1684173049141
 :block/properties 
 {:ls-type :whiteboard-shape
 :logseq.tldraw.shape 
@@ -2185,7 +2185,7 @@
 :point [7383.596337357742 321.09578968535664]
 :parentId "63343143-c1b8-4d33-a4d2-b9b91d772e96"
 :nonce 1664531347941}}
-:block/updated-at 1683744079926})
+:block/updated-at 1684173049141})
 :pages (
 {:block/created-at 1683744076809
 :block/name "645be54c-81f6-4f83-a125-c2414e6430c0"
@@ -2407,5 +2407,5 @@
 :size [1050 700]}]
 :shapes-index ("402a4960-ef62-11ed-a139-5bbed30492f8" "402a7070-ef62-11ed-a139-5bbed30492f8" "402a7071-ef62-11ed-a139-5bbed30492f8" "402a7072-ef62-11ed-a139-5bbed30492f8" "402a7073-ef62-11ed-a139-5bbed30492f8" "402a7074-ef62-11ed-a139-5bbed30492f8" "402a7075-ef62-11ed-a139-5bbed30492f8" "402a7076-ef62-11ed-a139-5bbed30492f8" "402a7077-ef62-11ed-a139-5bbed30492f8" "402a7078-ef62-11ed-a139-5bbed30492f8" "402a7079-ef62-11ed-a139-5bbed30492f8" "402a707a-ef62-11ed-a139-5bbed30492f8" "402a707b-ef62-11ed-a139-5bbed30492f8" "402a707c-ef62-11ed-a139-5bbed30492f8" "402a707d-ef62-11ed-a139-5bbed30492f8" "402a707e-ef62-11ed-a139-5bbed30492f8" "402a707f-ef62-11ed-a139-5bbed30492f8" "402a7080-ef62-11ed-a139-5bbed30492f8" "402a7081-ef62-11ed-a139-5bbed30492f8" "402a7082-ef62-11ed-a139-5bbed30492f8" "402a7083-ef62-11ed-a139-5bbed30492f8" "402a7084-ef62-11ed-a139-5bbed30492f8" "402a7085-ef62-11ed-a139-5bbed30492f8" "402a7086-ef62-11ed-a139-5bbed30492f8" "402a7087-ef62-11ed-a139-5bbed30492f8" "402a7088-ef62-11ed-a139-5bbed30492f8" "402a7089-ef62-11ed-a139-5bbed30492f8" "402a708a-ef62-11ed-a139-5bbed30492f8" "402a708b-ef62-11ed-a139-5bbed30492f8" "402a708c-ef62-11ed-a139-5bbed30492f8" "402a708d-ef62-11ed-a139-5bbed30492f8" "402a708e-ef62-11ed-a139-5bbed30492f8" "402a708f-ef62-11ed-a139-5bbed30492f8" "402a7090-ef62-11ed-a139-5bbed30492f8" "402a7091-ef62-11ed-a139-5bbed30492f8" "402a7092-ef62-11ed-a139-5bbed30492f8" "402a7093-ef62-11ed-a139-5bbed30492f8" "402a7094-ef62-11ed-a139-5bbed30492f8" "402a7095-ef62-11ed-a139-5bbed30492f8" "402a7096-ef62-11ed-a139-5bbed30492f8" "402a7097-ef62-11ed-a139-5bbed30492f8" "402a7098-ef62-11ed-a139-5bbed30492f8" "402a7099-ef62-11ed-a139-5bbed30492f8" "402a709a-ef62-11ed-a139-5bbed30492f8" "402a709b-ef62-11ed-a139-5bbed30492f8" "402a709c-ef62-11ed-a139-5bbed30492f8" "402a709d-ef62-11ed-a139-5bbed30492f8" "402a709e-ef62-11ed-a139-5bbed30492f8" "402a709f-ef62-11ed-a139-5bbed30492f8" "402a70a0-ef62-11ed-a139-5bbed30492f8" "402a70a1-ef62-11ed-a139-5bbed30492f8" "402a9780-ef62-11ed-a139-5bbed30492f8" "402a9781-ef62-11ed-a139-5bbed30492f8" "402a9782-ef62-11ed-a139-5bbed30492f8" "402a9783-ef62-11ed-a139-5bbed30492f8" "402a9784-ef62-11ed-a139-5bbed30492f8" "402a9785-ef62-11ed-a139-5bbed30492f8" "402a9786-ef62-11ed-a139-5bbed30492f8" "402a9787-ef62-11ed-a139-5bbed30492f8" "402a9788-ef62-11ed-a139-5bbed30492f8" "402a9789-ef62-11ed-a139-5bbed30492f8" "402a978a-ef62-11ed-a139-5bbed30492f8" "402a978b-ef62-11ed-a139-5bbed30492f8" "402a978c-ef62-11ed-a139-5bbed30492f8" "402a978d-ef62-11ed-a139-5bbed30492f8" "402a978e-ef62-11ed-a139-5bbed30492f8" "402a978f-ef62-11ed-a139-5bbed30492f8" "402a9790-ef62-11ed-a139-5bbed30492f8" "402a9791-ef62-11ed-a139-5bbed30492f8" "402a9792-ef62-11ed-a139-5bbed30492f8" "402a9793-ef62-11ed-a139-5bbed30492f8" "402a9794-ef62-11ed-a139-5bbed30492f8" "402a9795-ef62-11ed-a139-5bbed30492f8" "402a9796-ef62-11ed-a139-5bbed30492f8" "402a9797-ef62-11ed-a139-5bbed30492f8" "402a9798-ef62-11ed-a139-5bbed30492f8" "402a9799-ef62-11ed-a139-5bbed30492f8" "402a979a-ef62-11ed-a139-5bbed30492f8" "402a979b-ef62-11ed-a139-5bbed30492f8")}}
 :block/type "whiteboard"
-:block/updated-at 1683744079915
+:block/updated-at 1684173049136
 :block/uuid #uuid "645be54c-81f6-4f83-a125-c2414e6430c0"})}
