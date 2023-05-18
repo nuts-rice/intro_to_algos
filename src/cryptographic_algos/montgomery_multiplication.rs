@@ -43,7 +43,7 @@ impl MongtgomerySpace {
             let p: u64 = (a).wrapping_mul(self.m_mark);
             let t: u64 = (a as u128 + (p * self.m) as u128 >> 64) as u64;
             todo!()
-        //    Value((if t >= (self.m) { t - (self.m) } else { t }))
+            //    Value((if t >= (self.m) { t - (self.m) } else { t }))
         }
     }
 }
@@ -72,7 +72,6 @@ impl MongtgomerySpace {
 
 // impl Sub for Value<'MongtgomerySpace> {
 //     type Output = Value;
-
 
 //     fn sub(self, b: Self::Output) -> Self::Output {
 //         todo!()

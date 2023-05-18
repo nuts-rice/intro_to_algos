@@ -5,6 +5,10 @@ extern crate libc;
 extern crate rand;
 extern crate rand_isaac;
 
+use std::sync::Arc;
+use tokio::sync::Mutex;
+use webrtc::peer_connection::RTCPeerConnection;
+
 use rand::prelude::*;
 
 pub mod backtracking;
@@ -13,8 +17,8 @@ pub mod chp_3;
 pub mod chp_4;
 pub mod chp_6;
 pub mod cryptographic_algos;
+pub mod fun_stuff;
 pub mod hackers_delight;
-pub mod fun_stuff; 
 pub fn random_u64() -> u64 {
     let mut result: u64 = 0;
     let mut buffer: [u8; 8] = [0; 8];
@@ -25,6 +29,12 @@ pub fn random_u64() -> u64 {
         result |= buf as u64;
     }
     result
+}
+
+#[macro_use]
+lazy_static! {
+    static ref PEER_CONNECTION_MUTEX: Arc<Mutex<Option<Arc<RTCPeerConnection>>>> =
+        Arc::new(Mutex::new(None));
 }
 
 //pub mod hackers_delight;
