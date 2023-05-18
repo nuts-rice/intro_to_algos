@@ -42,9 +42,9 @@ rsa = "0.8.2"
 chrono = "0.4.24"
 diamond-types = "1.0.0"
 webrtc = "0.7.2"
-tokio-util = { version = "0.7.8", features = ["io", "net"] }
+tokio-util = { version = "0.7.8", features = ["io", "net", "codec"] }
 net = "0.1.0"
-hyper = "0.14.26"
+hyper = {version = "0.14.26", features = ["full"]}
 tokio = "1.28.1"
 
 [dev-dependencies]
