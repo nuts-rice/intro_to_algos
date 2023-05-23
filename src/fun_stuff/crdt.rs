@@ -2,6 +2,7 @@ use anyhow::Result;
 use diamond_types::list::*;
 use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Error, Method, Request, Response, StatusCode};
+use parking_lot::RwLock;
 use webrtc::peer_connection::RTCPeerConnection;
 
 use std::fs::File;
@@ -16,6 +17,15 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 use crate::PEER_CONNECTION_MUTEX;
 
 type LaTeXFile = Box<File>;
+
+pub struct Notepad {
+    state: RwLock<State>,
+}
+
+#[derive(Default)]
+struct State {
+    text: String,
+}
 
 static NOT_FOUND: &[u8] = b"Not Found";
 static INDEX: &str = "index.html";
@@ -54,7 +64,7 @@ async fn remote_handler(req: Request<Body>) -> Result<Response<Body>, hyper::Err
     match (req.method(), req.uri().path()) {
         (&Method::GET, "/") | (&Method::GET, "/index.html") => send_file(INDEX).await,
         (&Method::POST, "/createPeerConnection") => todo!(),
-        (&Method::POST, "/addNotes") => add_notes().await,
+        (&Method::POST, "/addNotes") => add_notes(pc.await, req).await,
         (&Method::POST, "/removeNotes") => remove_notes().await,
 
         _ => {
@@ -63,8 +73,12 @@ async fn remote_handler(req: Request<Body>) -> Result<Response<Body>, hyper::Err
     }
 }
 
-async fn add_notes() -> Result<Response<Body>, hyper::Error> {
-    unimplemented!()
+async fn add_notes(
+    pc: Arc<RTCPeerConnection>,
+    r: Request<Body>,
+) -> Result<Response<Body>, hyper::Error> {
+    let notes = Arc::new("dummy");
+    todo!()
 }
 
 async fn remove_notes() -> Result<Response<Body>, hyper::Error> {
