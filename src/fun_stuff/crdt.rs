@@ -4,7 +4,9 @@ use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Error, Method, Request, Response, StatusCode};
 use parking_lot::RwLock;
 use webrtc::peer_connection::RTCPeerConnection;
+use webrtc::stun::textattrs::Username;
 
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::BufReader;
 use std::sync::Arc;
@@ -16,19 +18,22 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 
 use crate::PEER_CONNECTION_MUTEX;
 
+static NOT_FOUND: &[u8] = b"Not Found";
+static INDEX: &str = "index.html";
+
 type LaTeXFile = Box<File>;
 
 pub struct Notepad {
     state: RwLock<State>,
+    users: u64,
 }
 
 #[derive(Default)]
 struct State {
     text: String,
+    users: HashMap<u64, Username>,
 }
 
-static NOT_FOUND: &[u8] = b"Not Found";
-static INDEX: &str = "index.html";
 fn not_found() -> Response<Body> {
     Response::builder()
         .status(StatusCode::NOT_FOUND)
